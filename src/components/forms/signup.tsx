@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
-import { Button } from "@/components/ui/button";
+import { Button, LinkButton } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
@@ -64,18 +64,17 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               disabled={isLoading}
             />
           </div>
-          <Button
-            disabled={isLoading}
+          <LinkButton
             className="bg-black border text-white hover:bg-[#CEFE58] hover:text-black "
-            asChild
+            href="/dashboard"
           >
             <div>
               {isLoading && (
                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
               )}
-              <Link href="/dashboard">Sign Up</Link>
+              Sign Up
             </div>
-          </Button>
+          </LinkButton>
         </div>
       </form>
       <div className="relative">
