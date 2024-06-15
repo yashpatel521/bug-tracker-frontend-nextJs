@@ -17,7 +17,7 @@ export default function AuthenticationPage() {
         href="/login"
         className={cn(
           buttonVariants({ variant: "ghost" }),
-          "absolute left-4 top-4 md:left-8 md:top-8 border hover:bg-[#CEFE58] hover:text-black"
+          "absolute left-4 top-4 md:left-8 md:top-8 border hover:bg-[var(--themeColor)] hover:text-black"
         )}
       >
         Login

@@ -3,11 +3,10 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { Icons } from "@/components/icons";
+import { Icons } from "@/components/ui/icons";
 import { Button, LinkButton } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Link from "next/link";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -57,7 +56,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </div>
 
           <LinkButton
-            className="bg-black border text-white hover:bg-[#CEFE58] hover:text-black"
+            className="bg-black border text-white hover:bg-[var(--themeColor)] hover:text-black"
             href="/dashboard"
           >
             <div>
@@ -83,7 +82,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         <Button
           variant="outline"
           type="button"
-          className="hover:bg-[#CEFE58] hover:text-black"
+          className="hover:bg-[var(--themeColor)] hover:text-black"
           disabled={isLoading}
         >
           {isLoading ? (
@@ -95,7 +94,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         </Button>
         <Button
           variant="outline"
-          className="hover:bg-[#CEFE58] hover:text-black"
+          className="hover:bg-[var(--themeColor)] hover:text-black"
           type="button"
           disabled={isLoading}
         >
@@ -108,7 +107,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         </Button>
         <Button
           variant="outline"
-          className="hover:bg-[#CEFE58] hover:text-black"
+          className="hover:bg-[var(--themeColor)] hover:text-black"
           type="button"
           disabled={isLoading}
         >

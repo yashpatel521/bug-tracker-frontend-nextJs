@@ -1,53 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { DashboardNav } from "@/components/ui/dashboard/dashboard-nav";
+import { DashboardNav } from "@/components/dashboard/dashboard-nav";
 import { cn } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
-import { useSidebar } from "../hooks/useSidebar";
-import { NavItem } from "../types";
-
-const navItems: NavItem[] = [
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-    icon: "dashboard",
-    label: "Dashboard",
-  },
-  {
-    title: "User",
-    href: "/dashboard/user",
-    icon: "user",
-    label: "user",
-  },
-  {
-    title: "Employee",
-    href: "/dashboard/employee",
-    icon: "employee",
-    label: "employee",
-  },
-  {
-    title: "Profile",
-    href: "/dashboard/profile",
-    icon: "profile",
-    label: "profile",
-  },
-  {
-    title: "Kanban",
-    href: "/dashboard/kanban",
-    icon: "kanban",
-    label: "kanban",
-  },
-  {
-    title: "Login",
-    href: "/",
-    icon: "login",
-    label: "login",
-  },
-];
-
-type SidebarProps = {
-  className?: string;
-};
+import { useSidebar } from "./hooks/useSidebar";
+import { SidebarProps } from "@/types";
+import { navItems } from "@/data/sideBar.data";
 
 export default function Sidebar({ className }: SidebarProps) {
   const { isMinimized, toggle } = useSidebar();

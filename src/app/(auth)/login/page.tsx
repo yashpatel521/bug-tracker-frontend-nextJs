@@ -4,7 +4,7 @@ import { UserAuthForm } from "@/components/forms/login";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import Logo from "@/components/ui/logo";
+import Logo from "@/components/logo";
 
 export const metadata: Metadata = {
   title: "Authentication",
@@ -18,7 +18,7 @@ export default function AuthenticationPage() {
         href="/signup"
         className={cn(
           buttonVariants({ variant: "ghost" }),
-          "absolute right-4 top-4 md:right-8 md:top-8 border hover:bg-[#CEFE58] hover:text-black"
+          "absolute right-4 top-4 md:right-8 md:top-8 border hover:bg-[var(--themeColor)] hover:text-black"
         )}
       >
         Sign Up

@@ -1,7 +1,7 @@
 import React from "react";
-import { MainNav } from "../ui/dashboard/main-nav";
-import { UserNav } from "../ui/dashboard/user-nav";
-import ThemeToggle from "../theme-toggle";
+import { MainNav } from "./dashboard/main-nav";
+import { UserNav } from "./dashboard/user-nav";
+import ThemeToggle from "./ui/Theme/theme-toggle";
 
 const Header = () => {
   return (

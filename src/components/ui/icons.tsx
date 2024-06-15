@@ -29,6 +29,7 @@ import {
   User,
   User2Icon,
   UserX2Icon,
+  FolderGit2,
   X,
 } from "lucide-react";
 
@@ -58,6 +59,7 @@ export const Icons = {
   sun: SunMedium,
   moon: Moon,
   laptop: Laptop,
+  FolderGit2: FolderGit2,
   logo: (props: IconProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" {...props}>
       <rect width="256" height="256" fill="none" />
