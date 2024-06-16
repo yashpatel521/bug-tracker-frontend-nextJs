@@ -15,8 +15,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { members } from "@/data/teamMembers";
 import { AddMemberPopover } from "./addMemberPopover";
+import { Icons } from "@/components/ui/icons";
 
 const TeamMember = () => {
+  const CrossCircleIcon = Icons["CrossCircle"];
   return (
     <div className="m-1 col-span-2">
       <Card>
@@ -61,17 +63,7 @@ const TeamMember = () => {
                         className="bg-transparent hover:bg-transparent ml-5 text-center"
                         title="Unpin project"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="20"
-                          width="20"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="var(--themeColor)"
-                            d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"
-                          />
-                        </svg>
+                        <CrossCircleIcon />
                       </Button>
                     </TableCell>
                   </TableRow>

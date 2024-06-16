@@ -5,24 +5,24 @@ export const reportCardData: ContentProps[] = [
     title: "Completed",
     value: 10,
     description: "",
-    svg: "completed",
+    svg: "Checked",
   },
   {
     title: "In Progress",
     value: 10,
     description: "",
-    svg: "inProgress",
+    svg: "Clock",
   },
   {
     title: "On Hold",
     value: 10,
     description: "",
-    svg: "onHold",
+    svg: "Pause",
   },
   {
     title: "In Review",
     value: 10,
     description: "",
-    svg: "inReview",
+    svg: "Eye",
   },
 ];

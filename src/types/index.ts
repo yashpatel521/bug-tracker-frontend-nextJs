@@ -1,5 +1,3 @@
-import { ColumnDef } from "@tanstack/react-table";
-
 export interface SidebarProps {
   className?: string;
 }
@@ -95,7 +93,7 @@ export interface avatarListType {
   fallback: string;
 }
 
-export interface projectCardType {\
+export interface projectCardType {
   appId: string | number;
   title: string;
   developer: string;
