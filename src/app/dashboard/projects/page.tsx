@@ -4,10 +4,10 @@ import { Separator } from "@/components/ui/separator";
 import { projectCardData } from "@/data/projectCard.data";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ProjectTable } from "@/components/dashboard/table/projectTable";
-import ProjectsCardList from "@/components/dashboard/Cards/projectsCard";
+import { ProjectTable } from "@/components/dashboard/project/projectTable";
+import ProjectsCardList from "@/components/dashboard/project/projectsCard";
 
-const breadcrumbItems = [{ title: "Projects", link: "/dashboard/user" }];
+const breadcrumbItems = [{ title: "Projects", link: "/dashboard/projects" }];
 
 const Projects = () => {
   return (

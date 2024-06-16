@@ -79,7 +79,7 @@ const ProjectsCardList = ({
           </Button>
         </div>
       </div>
-      <div className="flex flex-wrap shrink">
+      <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {data.map((data, index) => (
           <ProjectsCard key={index} appData={data} />
         ))}

@@ -2,6 +2,8 @@ import React from "react";
 import { MainNav } from "./dashboard/main-nav";
 import { UserNav } from "./dashboard/user-nav";
 import ThemeToggle from "./ui/Theme/theme-toggle";
+import { MobileSidebar } from "./dashboard/mobile-sidebar";
+import { cn } from "@/lib/utils";
 
 const Header = () => {
   return (
@@ -12,6 +14,9 @@ const Header = () => {
           <div className="ml-auto flex items-center space-x-4">
             <UserNav />
             <ThemeToggle />
+            <div className={cn("block md:!hidden lg:!hidden")}>
+              <MobileSidebar />
+            </div>
           </div>
         </div>
       </div>

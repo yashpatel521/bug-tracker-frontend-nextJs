@@ -1,83 +1,96 @@
 "use client";
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 const data = [
   {
-    name: "Jan",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    date: "2021-01-01",
+    installs: 4000,
   },
   {
-    name: "Feb",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    date: "2021-02-01",
+    installs: 3000,
   },
   {
-    name: "Mar",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    date: "2021-03-01",
+    installs: 2000,
   },
   {
-    name: "Apr",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    date: "2021-04-01",
+    installs: 2780,
   },
   {
-    name: "May",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    date: "2021-05-01",
+    installs: 1890,
   },
   {
-    name: "Jun",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    date: "2021-06-01",
+    installs: 2390,
   },
   {
-    name: "Jul",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    date: "2021-07-01",
+    installs: 3490,
   },
   {
-    name: "Aug",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    date: "2021-08-01",
+    installs: 4000,
   },
   {
-    name: "Sep",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    date: "2021-09-01",
+    installs: 3000,
   },
   {
-    name: "Oct",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    date: "2021-10-01",
+    installs: 2000,
   },
   {
-    name: "Nov",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    date: "2021-11-01",
+    installs: 2780,
   },
   {
-    name: "Dec",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    date: "2021-12-01",
+    installs: 1890,
   },
 ];
 
 export function Overview() {
   return (
     <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data}>
-        <XAxis
-          dataKey="name"
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
+      <AreaChart
+        width={500}
+        height={300}
+        data={data}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <XAxis dataKey="date" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Area
+          type="monotone"
+          dataKey="installs"
+          stroke="var(--themeColor)"
+          fill="#ffedad"
         />
-        <YAxis
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-          tickFormatter={(value) => `$${value}`}
-        />
-        <Bar
-          dataKey="total"
-          fill="currentColor"
-          radius={[4, 4, 0, 0]}
-          className="fill-primary"
-        />
-      </BarChart>
+      </AreaChart>
     </ResponsiveContainer>
   );
 }
