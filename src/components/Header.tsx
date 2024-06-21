@@ -1,8 +1,8 @@
 import React from "react";
-import { MainNav } from "./dashboard/main-nav";
-import { UserNav } from "./dashboard/user-nav";
+import { MainNav } from "./dashboard/main/main-nav";
+import { UserNav } from "./dashboard/main/user-nav";
 import ThemeToggle from "./ui/Theme/theme-toggle";
-import { MobileSidebar } from "./dashboard/mobile-sidebar";
+import { MobileSidebar } from "./dashboard/main/mobile-sidebar";
 import { cn } from "@/lib/utils";
 
 const Header = () => {

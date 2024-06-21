@@ -1,15 +1,24 @@
 import React from "react";
 import BreadCrumb from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-import { projectCardData } from "@/data/projectCard.data";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ProjectTable } from "@/components/dashboard/project/projectTable";
 import ProjectsCardList from "@/components/dashboard/project/projectsCard";
+import SearchIntput from "@/components/dashboard/searchIntput";
 
 const breadcrumbItems = [{ title: "Projects", link: "/dashboard/projects" }];
 
-const Projects = () => {
+const Projects = async ({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
+}) => {
+  const query = searchParams?.query || "";
+  const currentPage = Number(searchParams?.page) || 1;
   return (
     <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
       <BreadCrumb items={breadcrumbItems} />
@@ -23,11 +32,12 @@ const Projects = () => {
           </TabsList>
         </div>
         <Separator />
+        <SearchIntput />
         <TabsContent value="gridView">
-          <ProjectsCardList projectData={projectCardData} />
+          <ProjectsCardList query={query} currentPage={currentPage} />
         </TabsContent>
         <TabsContent value="listView">
-          <ProjectTable data={projectCardData} />
+          <ProjectTable query={query} currentPage={currentPage} />
         </TabsContent>
       </Tabs>
     </div>

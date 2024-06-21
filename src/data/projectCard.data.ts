@@ -1,4 +1,6 @@
-export const projectCardData = [
+import { projectCardPanigateType, projectCardType } from "@/types";
+
+const projectCardData = [
   {
     appId: 1,
     title: "WhatsApp Messenger",
@@ -148,3 +150,32 @@ export const projectCardData = [
     ],
   },
 ];
+
+export function projectCardPanigate(
+  page: number,
+  searchQuery?: string
+): projectCardPanigateType {
+  const itemsPerPage = 8;
+
+  let filteredData: projectCardType[] = projectCardData;
+  if (searchQuery) {
+    filteredData = projectCardData.filter(
+      (item) =>
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.developer.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
+  const totalItems = filteredData.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const currentPage = page > totalPages ? totalPages : page < 1 ? 1 : page;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedItems = filteredData.slice(startIndex, endIndex);
+
+  return {
+    totalItems,
+    totalPages,
+    currentPage,
+    items: paginatedItems,
+  };
+}

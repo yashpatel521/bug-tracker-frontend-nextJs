@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Card,
   CardContent,
@@ -6,12 +5,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import PinProjectCard from "@/components/dashboard/Cards/pinProjectCard";
+import PinProjectCard from "@/components/dashboard/main/pinProjectCard";
 import { pinProjectCardData } from "@/data/pinProjectCard.data";
 import { pinProjectCardType } from "@/types";
 import { Separator } from "@/components/ui/separator";
 
-export function PinProjects() {
+export async function PinProjects() {
   return (
     <div className="m-1">
       <Card className="col-span-6 md:col-span-5 shadow-2xl dark:shadow-none">

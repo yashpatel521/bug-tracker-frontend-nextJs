@@ -1,27 +1,25 @@
 "use client";
 
 import AvatarList from "@/components/AvatarList";
-import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/icons";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { projectCardType } from "@/types";
+import { projectCardPanigate } from "@/data/projectCard.data";
+import { projectCardPanigateType, projectCardType } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
 
 const ProjectsCard = ({ appData }: { appData: projectCardType }) => {
   const EyeIcon = Icons["Eye"];
   return (
-    <div className="m-1">
-      <div className="min-h-42 min-w-64 rounded-3xl border p-4 flex flex-col items-start justify-center gap-3 ">
+    <div className="m-1 shadow-lg border rounded-3xl dark:shadow-none ">
+      <div className="min-h-42 min-w-64  p-4 flex flex-col items-start justify-center gap-3 ">
         <div className="flex">
           <Image
             src={appData.src}
             alt={appData.title}
             width={50}
             height={60}
-            className=" rounded-2xl mr-2"
+            className=" rounded-2xl mr-2 w-auto h-auto"
           />
           <div className="text-center w-full mt-1">
             <p className="text-[14px]">{appData.title}</p>
@@ -41,38 +39,20 @@ const ProjectsCard = ({ appData }: { appData: projectCardType }) => {
 };
 
 const ProjectsCardList = ({
-  projectData,
+  query,
+  currentPage,
 }: {
-  projectData: projectCardType[];
+  query: string;
+  currentPage: number;
 }) => {
-  const [data, setData] = useState(projectData);
-
-  const filterChange = (e: string) => {
-    const filteredData = projectData.filter((data) =>
-      data.title.toLocaleLowerCase().includes(e.toLocaleLowerCase())
-    );
-    setData(filteredData);
-  };
-
+  const projectData: projectCardPanigateType = projectCardPanigate(
+    currentPage,
+    query
+  );
   return (
     <div>
-      <div className="flex items-center justify-between py-4">
-        <Input
-          placeholder="Filter title..."
-          className="max-w-sm"
-          onChange={(e) => filterChange(e.target.value)}
-        />
-        <div className="flex items-center justify-end space-x-2 py-4">
-          <Button variant="outline" size="sm">
-            Previous
-          </Button>
-          <Button variant="outline" size="sm">
-            Next
-          </Button>
-        </div>
-      </div>
       <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {data.map((data, index) => (
+        {projectData.items.map((data, index) => (
           <ProjectsCard key={index} appData={data} />
         ))}
       </div>

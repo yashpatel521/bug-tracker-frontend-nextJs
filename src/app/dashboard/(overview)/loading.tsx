@@ -1,7 +1,6 @@
-import { PinProjects } from "@/components/dashboard/pinProject";
-import ReportCard from "@/components/dashboard/Cards/reportCard";
 import TimeBasedGreeting from "@/components/TimeBaseGreeter";
-import { reportCardData } from "@/data/reportCard.data";
+import PinProjectsSkeleton from "@/skeletons/PinProjectsSkeleton";
+import ReportCardSkeletonWarapper from "@/skeletons/ReportCardSkeleton";
 
 export default function page() {
   return (
@@ -12,13 +11,11 @@ export default function page() {
         </h2>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
-        {reportCardData.map((data, index) => (
-          <ReportCard key={index} content={data} />
-        ))}
+        <ReportCardSkeletonWarapper />
       </div>
       <div className="grid grid-cols-2 ">
-        <PinProjects />
-        <PinProjects />
+        <PinProjectsSkeleton />
+        <PinProjectsSkeleton />
       </div>
     </div>
   );

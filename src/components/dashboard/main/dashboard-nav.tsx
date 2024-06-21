@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 
 import { Icons } from "@/components/ui/icons";
 import { cn } from "@/lib/utils";
-import { NavItem } from "../types";
+import { NavItem } from "../../types";
 import { Dispatch, SetStateAction } from "react";
-import { useSidebar } from "../hooks/useSidebar";
+import { useSidebar } from "../../hooks/useSidebar";
 import {
   Tooltip,
   TooltipContent,

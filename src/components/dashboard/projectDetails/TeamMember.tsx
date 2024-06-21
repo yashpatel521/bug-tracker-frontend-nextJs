@@ -32,7 +32,7 @@ const TeamMember = () => {
           <Separator />
         </CardHeader>
         <CardContent className="">
-          <ScrollArea className="h-[282px] w-full">
+          <ScrollArea className="h-96 w-full">
             <Table className="p-0 m-0">
               <TableHeader>
                 <TableRow>

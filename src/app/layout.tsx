@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "@/components/ui/Theme/theme-provider";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
+import NextTopLoader from "nextjs-toploader";
 
 export default function RootLayout({
   children,
@@ -11,6 +12,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} overflow-hidden`}>
+        <NextTopLoader color="var(--themeColor)" />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { DashboardNav } from "@/components/dashboard/dashboard-nav";
+import { DashboardNav } from "@/components/dashboard/main/dashboard-nav";
 import { cn } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
 import { useSidebar } from "./hooks/useSidebar";

@@ -11,7 +11,7 @@ const ProjectHeader = ({ appData }: { appData: pinProjectCardType }) => {
   const PinIcon = Icons["Pin"];
   const PlayStoreIcon = Icons["PlayStore"];
   return (
-    <div>
+    <div className=" rounded-2xl shadow-lg">
       <div className="flex px-5 justify-between">
         <div className="flex items-center">
           <Image
@@ -48,7 +48,9 @@ const ProjectHeader = ({ appData }: { appData: pinProjectCardType }) => {
               <p>{abbreviateNumber(+appData.reviews)}+</p>
               <p className="text-gray-400">Reviews</p>
             </div>
-            <HexagonConnected />
+            {/* <HexagonConnected
+              onClick={() => setToggle((prev: boolean) => !prev)}
+            /> */}
           </div>
         </div>
       </div>
