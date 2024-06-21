@@ -198,8 +198,10 @@ export function userPaginate(
 
   if (searchQuery) {
     const query = searchQuery.toLowerCase();
-    filteredData = users.filter((item) =>
-      item.name.toLowerCase().includes(query)
+    filteredData = users.filter(
+      (item) =>
+        item.name.toLowerCase().includes(query) ||
+        item.role.toLowerCase().includes(query)
     );
   }
 
@@ -210,6 +212,10 @@ export function userPaginate(
       } else {
         return (a as any)[sortBy] < (b as any)[sortBy] ? 1 : -1;
       }
+    });
+  } else {
+    filteredData = filteredData.sort((a, b) => {
+      return (a as any)["id"] > (b as any)["id"] ? 1 : -1;
     });
   }
 

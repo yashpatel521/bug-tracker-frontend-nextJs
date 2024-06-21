@@ -5,7 +5,7 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { useEffect, useState } from "react";
 
-const SearchIntput = () => {
+const SearchIntput = ({ placeholder }: { placeholder: string }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -51,7 +51,7 @@ const SearchIntput = () => {
   return (
     <div className="flex items-center justify-between py-4">
       <Input
-        placeholder="Filter title..."
+        placeholder={placeholder}
         className="max-w-sm"
         onChange={(e) => {
           handleSearch(e.target.value);

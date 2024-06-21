@@ -32,7 +32,7 @@ const Projects = async ({
           </TabsList>
         </div>
         <Separator />
-        <SearchIntput />
+        <SearchIntput placeholder="Search by title..." />
         <TabsContent value="gridView">
           <ProjectsCardList query={query} currentPage={currentPage} />
         </TabsContent>

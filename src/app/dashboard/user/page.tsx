@@ -26,7 +26,7 @@ const page = ({
     <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
       <BreadCrumb items={breadcrumbItems} />
       <UserHeader />
-      <SearchIntput />
+      <SearchIntput placeholder="Search by Name/Role..." />
       <UserTable
         query={query}
         currentPage={currentPage}
