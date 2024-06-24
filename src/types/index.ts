@@ -127,6 +127,13 @@ export type Employee = {
   profile_picture?: string | null; // Profile picture can be a string (URL) or null (if no picture)
 };
 
+export type teamMember = {
+  id: number;
+  name: string;
+  src: string;
+  role: string;
+};
+
 export type User = {
   id: number;
   name: string;
@@ -144,9 +151,16 @@ export interface userPaginateType {
 }
 
 export type Bug = {
-  id: number | string;
+  id: string;
   title: string;
   status: string;
   label: string;
   priority: string;
 };
+
+export interface bugPaginateType {
+  items: Bug[];
+  totalItems: number;
+  currentPage: number;
+  totalPages: number;
+}

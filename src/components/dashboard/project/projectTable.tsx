@@ -37,13 +37,13 @@ export function ProjectTable({
   replace(`${pathname}?${params.toString()}`);
 
   return (
-    <Table>
+    <Table className="border">
       <TableHeader>
         <TableRow>
-          <TableHead className="min-w-[100px]">App ID</TableHead>
-          <TableHead className="min-w-[400px]">Title</TableHead>
+          <TableHead>App ID</TableHead>
+          <TableHead>Title</TableHead>
           <TableHead>Developers Account</TableHead>
-          <TableHead className="min-w-[250px]">Team Members</TableHead>
+          <TableHead>Team Members</TableHead>
           <TableHead>Action</TableHead>
         </TableRow>
       </TableHeader>

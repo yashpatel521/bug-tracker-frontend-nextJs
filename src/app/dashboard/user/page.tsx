@@ -1,7 +1,7 @@
-import SearchIntput from "@/components/dashboard/searchIntput";
-import { UserHeader } from "@/components/dashboard/user/UserHeader";
+import SearchInput from "@/components/dashboard/searchInput";
 import UserTable from "@/components/dashboard/user/UserTable";
 import BreadCrumb from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
 import React from "react";
 
 const breadcrumbItems = [{ title: "Users", link: "/dashboard/users" }];
@@ -22,11 +22,17 @@ const page = ({
   const currentPage = Number(searchParams?.page) || 1;
   const sortBy = searchParams?.sortBy || "";
   const sortOrder = searchParams?.sortOrder || "";
+
+  const AddUser = {
+    href: "/dashboard/users/add",
+    icon: "UserPlus",
+  };
+
   return (
     <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
       <BreadCrumb items={breadcrumbItems} />
-      <UserHeader />
-      <SearchIntput placeholder="Search by Name/Role..." />
+      <Separator />
+      <SearchInput placeholder="Search by Name/Role..." addButton={AddUser} />
       <UserTable
         query={query}
         currentPage={currentPage}

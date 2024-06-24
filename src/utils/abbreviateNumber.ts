@@ -16,3 +16,11 @@ export function abbreviateNumber(num: number): string {
   }
   return num.toString();
 }
+
+export function truncateWords(str: string) {
+  if (str.length > 20) {
+    return str.substring(0, 50) + "...";
+  } else {
+    return str;
+  }
+}

@@ -10,6 +10,7 @@ const Logo = () => {
         width={50}
         className="w-auto h-auto"
         alt="logo"
+        priority
       ></Image>
       <h1 className="bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-400 inline-block text-transparent bg-clip-text">
         Brighter Bee

@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ProjectTable } from "@/components/dashboard/project/projectTable";
 import ProjectsCardList from "@/components/dashboard/project/projectsCard";
-import SearchIntput from "@/components/dashboard/searchIntput";
+import SearchInput from "@/components/dashboard/searchInput";
 
 const breadcrumbItems = [{ title: "Projects", link: "/dashboard/projects" }];
 
@@ -19,6 +19,10 @@ const Projects = async ({
 }) => {
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
+  const addProject = {
+    icon: "FolderGit2",
+    href: "/dashboard/projects/add",
+  };
   return (
     <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
       <BreadCrumb items={breadcrumbItems} />
@@ -32,7 +36,7 @@ const Projects = async ({
           </TabsList>
         </div>
         <Separator />
-        <SearchIntput placeholder="Search by title..." />
+        <SearchInput placeholder="Search by title..." addButton={addProject} />
         <TabsContent value="gridView">
           <ProjectsCardList query={query} currentPage={currentPage} />
         </TabsContent>

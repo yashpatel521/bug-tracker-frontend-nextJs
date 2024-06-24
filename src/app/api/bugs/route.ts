@@ -1,6 +1,6 @@
 import { Bug } from "@/types";
 
-export const bugs: Bug[] = [
+const bugs: Bug[] = [
   {
     id: "TASK-8782",
     title:
@@ -782,3 +782,47 @@ export const bugs: Bug[] = [
     priority: "low",
   },
 ];
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const currentPage = Number(searchParams.get("currentPage"));
+  const searchQuery = searchParams.get("query");
+  const sortBy = searchParams.get("sortBy");
+  const sortOrder = searchParams.get("sortOrder");
+
+  const itemsPerPage = 10;
+  let filteredData: Bug[] = bugs;
+
+  if (searchQuery) {
+    const query = searchQuery.toLowerCase();
+    filteredData = bugs.filter(
+      (item) =>
+        item.title.toLowerCase().includes(query) ||
+        item.id.toLowerCase().includes(query) ||
+        item.status.toLowerCase().includes(query) ||
+        item.label.toLowerCase().includes(query) ||
+        item.priority.toLowerCase().includes(query)
+    );
+  }
+
+  if (sortBy && sortOrder) {
+    filteredData = filteredData.sort((a, b) => {
+      if (sortOrder === "asc") {
+        return (a as any)[sortBy] > (b as any)[sortBy] ? 1 : -1;
+      } else {
+        return (a as any)[sortBy] < (b as any)[sortBy] ? 1 : -1;
+      }
+    });
+  } else {
+    filteredData = filteredData.sort((a, b) => {
+      return (a as any)["id"] > (b as any)["id"] ? 1 : -1;
+    });
+  }
+
+  const totalItems = filteredData.length;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedItems = filteredData.slice(startIndex, endIndex);
+
+  return Response.json({ total: totalItems, bugs: paginatedItems });
+}

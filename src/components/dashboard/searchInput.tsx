@@ -1,11 +1,21 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button, LinkButton } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { useEffect, useState } from "react";
+import { Icons } from "../ui/icons";
 
-const SearchIntput = ({ placeholder }: { placeholder: string }) => {
+const SearchInput = ({
+  placeholder,
+  addButton,
+}: {
+  placeholder: string;
+  addButton: {
+    href: string;
+    icon: string;
+  };
+}) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -19,7 +29,7 @@ const SearchIntput = ({ placeholder }: { placeholder: string }) => {
   const handleSearch = useDebouncedCallback((term) => {
     console.log(`Searching... ${term}`);
     const params = new URLSearchParams(searchParams ?? "");
-    params.set("page", "1");
+    params.set("currentPage", "1");
     if (term) {
       params.set("query", term);
     } else {
@@ -30,26 +40,27 @@ const SearchIntput = ({ placeholder }: { placeholder: string }) => {
 
   const handlePrevious = () => {
     const params = new URLSearchParams(searchParams || "");
-    const page = parseInt(params.get("page") || "1", 10);
+    const page = parseInt(params.get("currentPage") || "1", 10);
     if (page > 1) {
-      params.set("page", (page - 1).toString());
+      params.set("currentPage", (page - 1).toString());
       replace(`${pathname}?${params.toString()}`);
     }
   };
 
   const handleNext = () => {
     const params = new URLSearchParams(searchParams || "");
-    const page = parseInt(params.get("page") || "1", 10);
+    const page = parseInt(params.get("currentPage") || "1", 10);
     if (page < totalPages) {
-      params.set("page", (page + 1).toString());
+      params.set("currentPage", (page + 1).toString());
       replace(`${pathname}?${params.toString()}`);
     }
   };
 
-  const currentPage = parseInt(searchParams?.get("page") || "1", 10);
+  const currentPage = parseInt(searchParams?.get("currentPage") || "1", 10);
+  const AddIcon = Icons[addButton?.icon];
 
   return (
-    <div className="flex items-center justify-between py-4">
+    <div className="flex items-center justify-between">
       <Input
         placeholder={placeholder}
         className="max-w-sm"
@@ -75,9 +86,19 @@ const SearchIntput = ({ placeholder }: { placeholder: string }) => {
         >
           Next
         </Button>
+        <LinkButton
+          href={addButton.href}
+          className="text-xs md:text-sm  hover:bg-transparent bg-transparent"
+        >
+          <AddIcon
+            height="30"
+            width="30"
+            className="text-[var(--themeColor)]"
+          />
+        </LinkButton>
       </div>
     </div>
   );
 };
 
-export default SearchIntput;
+export default SearchInput;
