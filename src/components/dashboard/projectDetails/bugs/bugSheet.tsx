@@ -50,29 +50,27 @@ export function BugSheet({ title }: { title: string }) {
       >
         <ScrollArea className="h-full w-full p-2 ">
           <SheetHeader className="border-b pb-4 ">
-            <SheetTitle className=" flex justify-between items-baseline">
-              <div className="flex flex-col items-baseline md:flex-row justify-between">
-                <div>
-                  <div className="flex items-center justify-between md:justify-start">
-                    <span className="font-semibold text-2xl md:text-4xl text-slate-500">
-                      TASK-8782
-                    </span>
-                    <span className="mx-5 inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">
-                      High
-                    </span>
-                  </div>
-                  <div className="flex flex-row items-baseline gap-1 mt-2 md:mt-0">
-                    <span className="text-xs text-slate-600">Created By</span>
-                    <span className="capitalize text-sm text-slate-400">
-                      John Doe
-                    </span>
-                  </div>
+            <SheetTitle className=" flex flex-col items-baseline md:flex-row justify-between">
+              <div>
+                <div className="flex items-center justify-between md:justify-start">
+                  <span className="font-semibold text-2xl md:text-4xl text-slate-500">
+                    TASK-8782
+                  </span>
+                  <span className="mx-5 inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">
+                    High
+                  </span>
                 </div>
-                <div className="flex flex-col gap-2 mt-4 md:mt-0">
-                  <div className="flex items-center gap-2">
-                    <CalendarDaysIcon className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-muted-foreground">June 24, 2024</span>
-                  </div>
+                <div className="flex flex-row items-baseline gap-1 mt-2 md:mt-0">
+                  <span className="text-xs text-slate-600">Created By</span>
+                  <span className="capitalize text-sm text-slate-400">
+                    John Doe
+                  </span>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 mt-4 md:mt-0">
+                <div className="flex items-center gap-2">
+                  <CalendarDaysIcon className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-muted-foreground">June 24, 2024</span>
                 </div>
               </div>
             </SheetTitle>
