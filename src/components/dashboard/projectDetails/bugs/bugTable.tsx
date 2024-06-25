@@ -18,6 +18,8 @@ import axios from "axios";
 import { BugSheet } from "./bugSheet";
 import { FeatureBadge, PriorityBadge, StatusBadge } from "./tableProps";
 import { truncateWords } from "@/utils/abbreviateNumber";
+import BugSkeletonTable from "@/skeletons/bugSkeleton";
+import SearchInputSkeleton from "@/skeletons/SearchInputSkeleton";
 
 export default function BugTable({
   query,
@@ -36,12 +38,14 @@ export default function BugTable({
   };
   const [bugs, setBugs] = useState<Bug[]>([]);
   const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(true); // Added loading state
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
   const fetchBugs = async () => {
+    setIsLoading(true); // Start loading
     try {
       const response = await axios.get("/api/bugs", {
         params: { query, currentPage, sortBy, sortOrder },
@@ -54,11 +58,23 @@ export default function BugTable({
       replace(`${pathname}?${params.toString()}`);
     } catch (error) {
       console.error("Failed to fetch bugs:", error);
+    } finally {
+      setIsLoading(false); // End loading
     }
   };
+
   useEffect(() => {
     fetchBugs();
   }, [query, currentPage, sortBy, sortOrder]);
+
+  if (isLoading) {
+    return (
+      <>
+        <SearchInputSkeleton />
+        <BugSkeletonTable />
+      </>
+    );
+  }
   return (
     <>
       <SearchInput placeholder="Search by task..." addButton={addBug} />

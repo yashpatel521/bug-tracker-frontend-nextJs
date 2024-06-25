@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import { useParams } from "next/navigation";
 import BreadCrumb from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
@@ -11,6 +11,7 @@ import TeamMember from "@/components/dashboard/projectDetails/TeamMember";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Overview } from "@/components/dashboard/main/overview";
 import BugTable from "@/components/dashboard/projectDetails/bugs/bugTable";
+import BugSkeletonTable from "@/skeletons/bugSkeleton";
 
 const ProjectDetails = ({
   searchParams,

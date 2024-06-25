@@ -2,9 +2,9 @@ import React from "react";
 import { Separator } from "@/components/ui/separator";
 
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-import BreadCrumbSkeleton from "@/skeletons/BreadcrumbSkeleton";
 import SearchInputSkeleton from "@/skeletons/SearchInputSkeleton";
 import ProjectsCardListSkeleton from "@/skeletons/ProjectsCardSkeleton";
+import BreadCrumbSkeleton from "@/skeletons/BreadcrumbSkeleton";
 
 const Projects = () => {
   return (
