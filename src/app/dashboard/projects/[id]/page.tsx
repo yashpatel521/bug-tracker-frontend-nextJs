@@ -11,7 +11,8 @@ import TeamMember from "@/components/dashboard/projectDetails/TeamMember";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Overview } from "@/components/dashboard/main/overview";
 import BugTable from "@/components/dashboard/projectDetails/bugs/bugTable";
-import BugSkeletonTable from "@/skeletons/bugSkeleton";
+import HistoryInstallTable from "@/components/dashboard/projectDetails/HistoryInstallTable";
+import VersionTable from "@/components/dashboard/projectDetails/VersionTable";
 
 const ProjectDetails = ({
   searchParams,
@@ -38,7 +39,7 @@ const ProjectDetails = ({
     <div className="flex-1 p-3 pt-6 md:p-8">
       <BreadCrumb items={breadcrumbItems} />
       <Separator className="mb-1" />
-      <Tabs defaultValue="bugs" className="w-full mt-2">
+      <Tabs defaultValue="info" className="w-full mt-2">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="info">Details</TabsTrigger>
           <TabsTrigger value="bugs">Bugs</TabsTrigger>
@@ -51,7 +52,10 @@ const ProjectDetails = ({
               <AppDetails />
               <Overview />
             </div>
-            <TeamMember />
+            <div className="grid sm:grid-cols-1 md:grid-cols-1 xl:grid-cols-4 py-4">
+              <HistoryInstallTable />
+              <TeamMember />
+            </div>
           </div>
         </TabsContent>
         <TabsContent value="bugs">
@@ -63,7 +67,7 @@ const ProjectDetails = ({
           />
         </TabsContent>
         <TabsContent value="versions">
-          <TeamMember />
+          <VersionTable />
         </TabsContent>
       </Tabs>
     </div>

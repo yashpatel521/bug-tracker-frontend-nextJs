@@ -1,17 +1,18 @@
-import { pinProjectCardType } from "@/types";
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { pinProjectCardType } from "@/types";
 import { abbreviateNumber } from "@/utils/abbreviateNumber";
 import { Icons } from "@/components/ui/icons";
 
 const ProjectHeader = ({ appData }: { appData: pinProjectCardType }) => {
-  const HexagonConnected = Icons["HexagonConnected"];
+  // Destructure icons from Icons object
   const StarIcon = Icons["Star"];
   const PinIcon = Icons["Pin"];
   const PlayStoreIcon = Icons["PlayStore"];
+
   return (
-    <div className=" rounded-2xl shadow-lg">
+    <div className="rounded-2xl shadow-lg">
       <div className="flex px-5 justify-between">
         <div className="flex items-center">
           <Image
@@ -48,9 +49,6 @@ const ProjectHeader = ({ appData }: { appData: pinProjectCardType }) => {
               <p>{abbreviateNumber(+appData.reviews)}+</p>
               <p className="text-gray-400">Reviews</p>
             </div>
-            {/* <HexagonConnected
-              onClick={() => setToggle((prev: boolean) => !prev)}
-            /> */}
           </div>
         </div>
       </div>

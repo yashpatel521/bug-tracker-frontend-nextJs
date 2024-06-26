@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
-import "react-photo-view/dist/react-photo-view.css";
 import {
   Sheet,
   SheetClose,
@@ -15,9 +14,8 @@ import { Textarea } from "@/components/ui/textarea";
 import AvatarMultiSelect from "./avatarMultiSelect";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import Image from "next/image";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { PhotoProvider, PhotoView } from "react-photo-view";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import ImageViewer from "@/components/ui/imageViewer";
 
 const images = [
   "https://github.com/shadcn.png",
@@ -142,25 +140,7 @@ export function BugSheet({ title }: { title: string }) {
                 <Input type="file" placeholder="Attachments" />
               </div>
               <div className="mt-1 ml-2 flex ">
-                <PhotoProvider>
-                  <ScrollArea className="w-full whitespace-nowrap rounded-md border">
-                    <div className="flex gap-4 m-2 opacity-50">
-                      {images.map((item, index) => (
-                        <PhotoView key={index} src={item}>
-                          <Image
-                            src={item}
-                            width={100}
-                            height={100}
-                            className="rounded-lg shadow-lg"
-                            key={index}
-                            alt="alt"
-                          />
-                        </PhotoView>
-                      ))}
-                    </div>
-                    <ScrollBar orientation="horizontal" />
-                  </ScrollArea>
-                </PhotoProvider>
+                <ImageViewer images={images} />
               </div>
             </div>
           </div>

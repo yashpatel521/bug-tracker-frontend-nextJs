@@ -19,7 +19,6 @@ import { BugSheet } from "./bugSheet";
 import { FeatureBadge, PriorityBadge, StatusBadge } from "./tableProps";
 import { truncateWords } from "@/utils/abbreviateNumber";
 import BugSkeletonTable from "@/skeletons/bugSkeleton";
-import SearchInputSkeleton from "@/skeletons/SearchInputSkeleton";
 
 export default function BugTable({
   query,
@@ -33,8 +32,8 @@ export default function BugTable({
   sortOrder: string;
 }) {
   const addBug = {
-    href: "/",
-    icon: "Eye",
+    href: "",
+    icon: "Cube",
   };
   const [bugs, setBugs] = useState<Bug[]>([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -67,17 +66,10 @@ export default function BugTable({
     fetchBugs();
   }, [query, currentPage, sortBy, sortOrder]);
 
-  if (isLoading) {
-    return (
-      <>
-        <SearchInputSkeleton />
-        <BugSkeletonTable />
-      </>
-    );
-  }
   return (
     <>
       <SearchInput placeholder="Search by task..." addButton={addBug} />
+
       <Table className="border">
         <TableHeader>
           <TableRow>
@@ -96,35 +88,39 @@ export default function BugTable({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {bugs.map((bug) => (
-            <TableRow key={bug.id}>
-              <TableCell>
-                <BugSheet title={bug.id} />
-              </TableCell>
+          {isLoading ? (
+            <BugSkeletonTable />
+          ) : (
+            bugs.map((bug) => (
+              <TableRow key={bug.id}>
+                <TableCell>
+                  <BugSheet title={bug.id} />
+                </TableCell>
 
-              <TableCell>
-                <div className="flex">
-                  <span className="sm:max-w-[100px] md:max-w-96 font-medium break-words">
-                    {truncateWords(bug.title)}
-                  </span>
-                </div>
-              </TableCell>
-              <TableCell>
-                <FeatureBadge s={bug.label} />
-              </TableCell>
-              <TableCell>
-                <div className="flex  items-center">
-                  <StatusBadge s={bug.status} />
-                </div>
-              </TableCell>
-              <TableCell>
-                <div className="flex items-center">
-                  <PriorityBadge s={bug.priority} />
-                </div>
-              </TableCell>
-              <TableCell className="text-right">...</TableCell>
-            </TableRow>
-          ))}
+                <TableCell>
+                  <div className="flex">
+                    <span className="sm:max-w-[100px] md:max-w-96 font-medium break-words">
+                      {truncateWords(bug.title)}
+                    </span>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <FeatureBadge s={bug.label} />
+                </TableCell>
+                <TableCell>
+                  <div className="flex  items-center">
+                    <StatusBadge s={bug.status} />
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center">
+                    <PriorityBadge s={bug.priority} />
+                  </div>
+                </TableCell>
+                <TableCell className="text-right">...</TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
         <TableCaption>{`Page ${currentPage} of ${totalPages} `}</TableCaption>
       </Table>
