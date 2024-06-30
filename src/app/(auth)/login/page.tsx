@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { UserAuthForm } from "@/components/forms/login";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Logo from "@/components/logo";
+import UserAuthForm from "@/components/forms/UserAuthForm";
 
 export const metadata: Metadata = {
   title: "Authentication",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function AuthenticationPage() {
   return (
     <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-      <Link
+      {/* <Link
         href="/signup"
         className={cn(
           buttonVariants({ variant: "ghost" }),
@@ -22,27 +22,18 @@ export default function AuthenticationPage() {
         )}
       >
         Sign Up
-      </Link>
-      <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
+      </Link> */}
+      <div className="relative hidden h-full flex-col bg-muted p-10 lg:flex dark:border-r">
         <div className="absolute inset-0 bg-zinc-900" />
         <Logo />
-        <div className="relative ">
+        <div className="relative w-full h-full ">
           <Image
             src="/banner4.png"
             alt="banner"
-            className="w-full h-full "
-            width={100}
-            height={100}
+            layout="fill"
+            objectFit="contain"
             unoptimized={true}
           />
-          <blockquote className="space-y-2">
-            {/* <p className="text-lg">
-              &ldquo;This library has saved me countless hours of work and
-              helped me deliver stunning designs to my clients faster than ever
-              before.&rdquo;
-            </p> */}
-            {/* <footer className="text-sm">Yash Patel</footer> */}
-          </blockquote>
         </div>
       </div>
       <div className="flex h-full items-center p-4 lg:p-8">

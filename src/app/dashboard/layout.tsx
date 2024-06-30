@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Sidebar from "@/components/Sidebar";
 import { SidebarProvider } from "@/components/hooks/useSidebar";
+import AuthenticatedRoute from "./AuthenticatedRoute";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -16,15 +17,17 @@ export default function DashboardPage({
 }) {
   return (
     <>
-      <Header />
-      <div className="flex h-screen overflow-hidden">
-        <SidebarProvider>
-          <Sidebar />
-        </SidebarProvider>
-        <main className="w-full pb-14">
-          <ScrollArea className="h-full">{children}</ScrollArea>
-        </main>
-      </div>
+      <AuthenticatedRoute>
+        <Header />
+        <div className="flex h-screen overflow-hidden">
+          <SidebarProvider>
+            <Sidebar />
+          </SidebarProvider>
+          <main className="w-full pb-14">
+            <ScrollArea className="h-full">{children}</ScrollArea>
+          </main>
+        </div>
+      </AuthenticatedRoute>
     </>
   );
 }

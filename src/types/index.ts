@@ -164,3 +164,24 @@ export interface bugPaginateType {
   currentPage: number;
   totalPages: number;
 }
+
+export interface LoginUser {
+  accessToken: string;
+  refreshToken: string;
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  createdAt: string;
+  role: {
+    id: number;
+    name: string;
+    createdAt: string;
+  };
+  subRole: {
+    id: number;
+    name: string;
+    createdAt: string;
+  };
+}

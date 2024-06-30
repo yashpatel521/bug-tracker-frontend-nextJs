@@ -18,9 +18,6 @@ const PinProjectCard = ({ data }: { data: pinProjectCardType }) => {
   return (
     <div>
       <div className="flex items-center">
-        <Link href={data.url} className="mr-2" target="_blank">
-          <PlayStoreIcon />
-        </Link>
         <Avatar className="h-9 w-9">
           <AvatarImage src={data.icon} alt="Avatar" />
           <AvatarFallback>{getInitials(data.title)}</AvatarFallback>
@@ -29,7 +26,12 @@ const PinProjectCard = ({ data }: { data: pinProjectCardType }) => {
           <p className="text-sm font-medium leading-none">
             <Link href="">{data.title}</Link>
           </p>
-          <p className="text-sm text-muted-foreground">{data.developer}</p>
+          <p className="text-sm text-muted-foreground flex gap-2 items-center">
+            {data.developer}
+            <Link href={data.url} className="mr-2" target="_blank">
+              <PlayStoreIcon className="w-3 h-3" />
+            </Link>
+          </p>
         </div>
 
         <div className="ml-auto font-medium">{data.installs}</div>
