@@ -16,18 +16,16 @@ export default function DashboardPage({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <AuthenticatedRoute>
+    <AuthenticatedRoute>
+      <SidebarProvider>
         <Header />
         <div className="flex h-screen overflow-hidden">
-          <SidebarProvider>
-            <Sidebar />
-          </SidebarProvider>
+          <Sidebar />
           <main className="w-full pb-14">
             <ScrollArea className="h-full">{children}</ScrollArea>
           </main>
         </div>
-      </AuthenticatedRoute>
-    </>
+      </SidebarProvider>
+    </AuthenticatedRoute>
   );
 }

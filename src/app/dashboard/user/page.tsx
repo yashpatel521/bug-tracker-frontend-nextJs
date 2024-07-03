@@ -11,7 +11,7 @@ const page = ({
 }: {
   searchParams?: {
     query?: string;
-    page?: string;
+    currentPage?: string;
     sortBy?: string;
     sortOrder?: string;
   };
@@ -19,10 +19,9 @@ const page = ({
   // wait 3s
 
   const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
+  const currentPage = Number(searchParams?.currentPage) || 1;
   const sortBy = searchParams?.sortBy || "";
   const sortOrder = searchParams?.sortOrder || "";
-
   const AddUser = {
     href: "/dashboard/users/add",
     icon: "UserPlus",

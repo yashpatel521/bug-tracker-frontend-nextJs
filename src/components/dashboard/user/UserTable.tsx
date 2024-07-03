@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Icons } from "@/components/ui/icons";
 import SortButton from "@/components/ui/sortButton";
@@ -12,10 +12,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { userPaginate } from "@/data/user.data";
-import { userPaginateType } from "@/types";
+import { LoginUser } from "@/types";
 import Link from "next/link";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { SECURE_GET } from "@/lib/request";
 
 export default function UserTable({
   query,
@@ -28,24 +28,41 @@ export default function UserTable({
   sortBy: string;
   sortOrder: string;
 }) {
-  const users: userPaginateType = userPaginate(
-    currentPage,
-    query,
-    sortBy,
-    sortOrder
-  );
   const EyeIcon = Icons["Eye"];
-
+  const [response, setResponse] = useState({
+    success: false,
+    data: {
+      users: [],
+      totalPages: 0,
+      currentPage,
+      total: 0,
+    },
+  });
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-
-  // Use useEffect to handle side effects like navigation
   useEffect(() => {
+    const getData = async () => {
+      const paramUrl = `/users?currentPage=${currentPage}&query=${query}&sortBy=${sortBy}&sortOrder=${sortOrder}`;
+      const responseApi = await SECURE_GET(paramUrl);
+      if (responseApi.success) {
+        setResponse(responseApi);
+      }
+    };
+    getData();
     const params = new URLSearchParams(searchParams ?? "");
-    params.set("totalPage", users.totalPages.toString());
+    params.set("totalPage", response.data.totalPages.toString());
     router.replace(`${pathname}?${params.toString()}`);
-  }, [users.totalPages, pathname, router, searchParams]);
+  }, [
+    query,
+    currentPage,
+    sortBy,
+    sortOrder,
+    pathname,
+    router,
+    searchParams,
+    response.data.totalPages,
+  ]);
 
   return (
     <Table className="text-center border">
@@ -54,27 +71,33 @@ export default function UserTable({
           <TableHead className="w-[100px]">User ID</TableHead>
           <TableHead className="text-center w-[400px]">Name</TableHead>
           <TableHead className="text-center">
-            <SortButton title="Role" />
+            <SortButton title="Role" sortKey="subRole" />
           </TableHead>
-          <TableHead className="text-center">Status</TableHead>
+          <TableHead className="text-center">
+            <SortButton title="status" sortKey="status" />
+          </TableHead>
           <TableHead className="text-center">Projects Assigned</TableHead>
           <TableHead className="text-center">Action</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {users.items.map((item) => (
+        {response.data.users.map((item: LoginUser) => (
           <TableRow key={item.id}>
             <TableCell>{item.id}</TableCell>
             <TableCell className="flex items-center justify-center">
               <Avatar className="h-6 w-6 my-2">
-                <AvatarImage src={item.src} alt={"avatar"} />
-                <AvatarFallback>{item.name}</AvatarFallback>
+                <AvatarImage src={item.profile} alt={"avatar"} />
+                <AvatarFallback>
+                  {item.firstName} {item.lastName}
+                </AvatarFallback>
               </Avatar>
-              <div className="ml-2">{item.name}</div>
+              <div className="ml-2">
+                {item.firstName} {item.lastName}
+              </div>
             </TableCell>
-            <TableCell>{item.role}</TableCell>
+            <TableCell>{item.subRole.name}</TableCell>
             <TableCell>{item.status}</TableCell>
-            <TableCell>{item.projectAssigned?.length}</TableCell>
+            <TableCell>{1}</TableCell>
             <TableCell className="flex justify-center">
               <Link href={`./user/${item.id}`}>
                 <EyeIcon />

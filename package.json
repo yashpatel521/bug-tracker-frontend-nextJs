@@ -29,9 +29,9 @@
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.2.12",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.394.0",
     "next": "^14.2.4",
-    "next-auth": "^4.24.7",
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^1.6.12",
     "react": "^18",
@@ -45,6 +45,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

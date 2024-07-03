@@ -1,4 +1,4 @@
-import { NavItem } from "@/components/types";
+import { NavItem } from "@/types";
 
 export const navItems: NavItem[] = [
   {
@@ -18,5 +18,11 @@ export const navItems: NavItem[] = [
     href: "/dashboard/user",
     icon: "user",
     label: "user",
+  },
+  {
+    title: "Roles & SubRoles",
+    href: "/dashboard/role",
+    icon: "Role",
+    label: "Role",
   },
 ];

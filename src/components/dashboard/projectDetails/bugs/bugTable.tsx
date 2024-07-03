@@ -17,8 +17,8 @@ import SortButton from "@/components/ui/sortButton";
 import axios from "axios";
 import { BugSheet } from "./bugSheet";
 import { FeatureBadge, PriorityBadge, StatusBadge } from "./tableProps";
-import { truncateWords } from "@/utils/abbreviateNumber";
 import BugSkeletonTable from "@/skeletons/bugSkeleton";
+import { truncateWords } from "@/lib/abbreviateNumber";
 
 export default function BugTable({
   query,

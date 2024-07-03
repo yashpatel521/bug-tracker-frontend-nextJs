@@ -3,16 +3,16 @@ import { Button } from "./button";
 import { ArrowUpDown } from "lucide-react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
-const SortButton = ({ title }: { title: string }) => {
+const SortButton = ({ title, sortKey }: { title: string; sortKey: string }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
   const [sortOrder, setSortOrder] = React.useState("asc");
 
-  const handleSort = (title: string) => {
+  const handleSort = (sortKey: string) => {
     const params = new URLSearchParams(searchParams ?? "");
-    params.set("sortBy", title.toLocaleLowerCase());
+    params.set("sortBy", sortKey);
     if (sortOrder === "asc") {
       setSortOrder("desc");
     } else {
@@ -27,7 +27,7 @@ const SortButton = ({ title }: { title: string }) => {
       className="bg-transparent hover:bg-transparent"
       onClick={(e) => {
         e.preventDefault();
-        handleSort(title);
+        handleSort(sortKey);
       }}
     >
       {title}

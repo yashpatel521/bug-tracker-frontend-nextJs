@@ -2,8 +2,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { pinProjectCardType } from "@/types";
-import { abbreviateNumber } from "@/utils/abbreviateNumber";
 import { Icons } from "@/components/ui/icons";
+import { abbreviateNumber } from "@/lib/abbreviateNumber";
 
 const ProjectHeader = ({ appData }: { appData: pinProjectCardType }) => {
   // Destructure icons from Icons object

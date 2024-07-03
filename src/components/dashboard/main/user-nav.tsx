@@ -11,18 +11,17 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { GlobalContext } from "@/context";
+import { useContext } from "react";
 
 export function UserNav() {
-  const router = useRouter();
+  const context = useContext(GlobalContext);
 
-  const handleSignOut = async () => {
-    console.log("Starting sign out process...");
-    await signOut({ redirect: false });
-    console.log("Sign out completed, redirecting to /login");
-    router.push("/login");
-  };
+  if (!context) {
+    return null;
+  }
+
+  const { logout } = context;
 
   return (
     <DropdownMenu>
@@ -60,7 +59,7 @@ export function UserNav() {
           <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleSignOut}>
+        <DropdownMenuItem onClick={logout}>
           Log out
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>

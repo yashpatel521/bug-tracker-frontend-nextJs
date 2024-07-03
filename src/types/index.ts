@@ -1,3 +1,14 @@
+import { Icons } from "@/components/ui/icons";
+
+export interface NavItem {
+  title: string;
+  href?: string;
+  disabled?: boolean;
+  external?: boolean;
+  icon?: keyof typeof Icons;
+  label?: string;
+  description?: string;
+}
 export interface SidebarProps {
   className?: string;
 }
@@ -165,23 +176,23 @@ export interface bugPaginateType {
   totalPages: number;
 }
 
+interface Role {
+  id: number;
+  name: string;
+  createdAt: string;
+}
+
 export interface LoginUser {
-  accessToken: string;
-  refreshToken: string;
+  accessToken?: string;
+  refreshToken?: string;
   id: number;
   firstName: string;
   lastName: string;
   email: string;
+  profile: string;
   password: string;
+  status: string;
   createdAt: string;
-  role: {
-    id: number;
-    name: string;
-    createdAt: string;
-  };
-  subRole: {
-    id: number;
-    name: string;
-    createdAt: string;
-  };
+  role: Role;
+  subRole: Role;
 }

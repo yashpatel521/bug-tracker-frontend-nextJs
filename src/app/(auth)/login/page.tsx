@@ -1,15 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Logo from "@/components/logo";
 import UserAuthForm from "@/components/forms/UserAuthForm";
-
-export const metadata: Metadata = {
-  title: "Authentication",
-  description: "Authentication forms built using the components.",
-};
 
 export default function AuthenticationPage() {
   return (
@@ -30,8 +23,8 @@ export default function AuthenticationPage() {
           <Image
             src="/banner4.png"
             alt="banner"
-            layout="fill"
-            objectFit="contain"
+            width={500}
+            height={500}
             unoptimized={true}
           />
         </div>
