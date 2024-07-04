@@ -9,7 +9,7 @@ const RoleHeader = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pb-2">
         <Heading
           title="Roles & Sub Roles"
           description="Manage Roles and Sub Roles "

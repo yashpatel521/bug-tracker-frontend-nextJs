@@ -74,15 +74,15 @@ export default function BugTable({
         <TableHeader>
           <TableRow>
             <TableHead>
-              <SortButton title="id" />
+              <SortButton title="id" sortKey="id" />
             </TableHead>
             <TableHead>Title</TableHead>
             <TableHead>Type</TableHead>
             <TableHead>
-              <SortButton title="Status" />
+              <SortButton title="Status" sortKey="status" />
             </TableHead>
             <TableHead>
-              <SortButton title="Priority" />
+              <SortButton title="Priority" sortKey="priority" />
             </TableHead>
             <TableHead>Action</TableHead>
           </TableRow>

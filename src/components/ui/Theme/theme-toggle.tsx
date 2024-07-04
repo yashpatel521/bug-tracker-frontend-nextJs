@@ -18,10 +18,8 @@ export default function ThemeToggle({}: CompProps) {
   const toggleTheme = () => {
     if (currentTheme === "light") {
       setTheme("dark");
-    } else if (currentTheme === "dark") {
-      setTheme("light");
     } else {
-      setTheme("system");
+      setTheme("light");
     }
   };
 

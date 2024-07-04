@@ -21,12 +21,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} md:overflow-hidden`}>
         <NextTopLoader color="var(--themeColor)" showSpinner={false} />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <GlobalState>{children}</GlobalState>
         </ThemeProvider>
       </body>

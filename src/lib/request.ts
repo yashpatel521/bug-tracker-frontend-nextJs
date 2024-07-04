@@ -4,6 +4,9 @@ import { BACKEND_URL } from "./constant";
 
 export const accessToken = () => {
   const token = Cookies.get("token");
+  if (!token) {
+    throw new Error("No access token found");
+  }
   return token;
 };
 
@@ -14,30 +17,40 @@ export async function POST(url: string, data: any) {
 }
 
 export async function SECURE_GET(url: string) {
-  // Get token from localStorage
   const token = accessToken();
-  if (!token) {
-    throw new Error("No access token found");
-  }
-
-  // Create headers with authorization token
   const myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   try {
-    // Fetch request
     const res = await fetch(`${BACKEND_URL}${url}`, {
       method: "GET",
       headers: myHeaders,
-      redirect: "follow",
     });
 
-    // Check if response is ok
-    if (!res.ok) {
-      throw new Error(`Request failed with status ${res.status}`);
-    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Fetch error:", error);
+    throw new Error("Failed to fetch data");
+  }
+}
 
-    // Parse response to json
+export async function SECURE_POST(url: string, dataBody: any) {
+  const token = accessToken();
+
+  // Create headers with authorization token
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${token}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  try {
+    // Fetch request
+    const res = await fetch(`${BACKEND_URL}${url}`, {
+      method: "POST",
+      headers: myHeaders,
+      body: JSON.stringify(dataBody),
+    });
+
     const data = await res.json();
     return data;
   } catch (error) {

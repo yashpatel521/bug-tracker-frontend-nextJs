@@ -176,7 +176,13 @@ export interface bugPaginateType {
   totalPages: number;
 }
 
-interface Role {
+export interface Role {
+  id: number;
+  name: string;
+  createdAt: string;
+}
+
+export interface SubRole {
   id: number;
   name: string;
   createdAt: string;
@@ -194,5 +200,5 @@ export interface LoginUser {
   status: string;
   createdAt: string;
   role: Role;
-  subRole: Role;
+  subRole: SubRole;
 }
