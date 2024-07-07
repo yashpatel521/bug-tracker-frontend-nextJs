@@ -14,8 +14,6 @@ const AddRoleForm = () => {
     const formData = new FormData(event.currentTarget);
     const roleName = formData.get("roleName");
 
-    console.log("Role Name:", roleName);
-
     const response = await SECURE_POST("/roles", { name: roleName });
     if (response.success) {
       setSuccessMessage("Role added successfully!");

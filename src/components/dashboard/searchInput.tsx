@@ -27,7 +27,6 @@ const SearchInput = ({
   }, [searchParams]);
 
   const handleSearch = useDebouncedCallback((term) => {
-    console.log(`Searching... ${term}`);
     const params = new URLSearchParams(searchParams ?? "");
     params.set("currentPage", "1");
     if (term) {

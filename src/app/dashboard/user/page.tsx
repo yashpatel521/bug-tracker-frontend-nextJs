@@ -23,7 +23,7 @@ const page = ({
   const sortBy = searchParams?.sortBy || "";
   const sortOrder = searchParams?.sortOrder || "";
   const AddUser = {
-    href: "/dashboard/users/add",
+    href: "/dashboard/user/add",
     icon: "UserPlus",
   };
 
