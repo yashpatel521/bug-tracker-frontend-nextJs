@@ -10,31 +10,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { projectCardPanigate } from "@/data/projectCard.data";
-import { projectCardPanigateType } from "@/types";
+import { projectCardType } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
 export function ProjectTable({
-  query,
-  currentPage,
+  projectData,
 }: {
-  query: string;
-  currentPage: number;
+  projectData: projectCardType[];
 }) {
-  const EyeIcon = Icons["Eye"];
-  const projectData: projectCardPanigateType = projectCardPanigate(
-    currentPage,
-    query
-  );
+  if (!projectData.length) return <div>No project data available</div>;
 
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  // set total pages in url params
-  const params = new URLSearchParams(searchParams ?? "");
-  params.set("totalPage", projectData.totalPages.toString());
-  replace(`${pathname}?${params.toString()}`);
+  const EyeIcon = Icons["Eye"];
 
   return (
     <Table className="border">
@@ -48,13 +34,13 @@ export function ProjectTable({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {projectData.items.map((item) => (
-          <TableRow key={item.appId}>
-            <TableCell>{item.appId}</TableCell>
+        {projectData.map((item) => (
+          <TableRow key={item.id}>
+            <TableCell>{item.id}</TableCell>
             <TableCell className="font-medium">
               <div className="flex  items-center gap-2">
                 <Image
-                  src={item.src}
+                  src={item.appIcon}
                   width={40}
                   height={40}
                   alt="icon"
@@ -66,10 +52,10 @@ export function ProjectTable({
             </TableCell>
             <TableCell>{item.developer}</TableCell>
             <TableCell>
-              <AvatarList avatarList={item.teamMembers} />
+              <AvatarList avatarList={item.userProjects} />
             </TableCell>
             <TableCell>
-              <Link href={`./projects/${item.appId}`}>
+              <Link href={`./projects/${item.id}`}>
                 <EyeIcon />
               </Link>
             </TableCell>

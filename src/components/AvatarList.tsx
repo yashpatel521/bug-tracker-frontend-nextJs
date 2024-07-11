@@ -1,17 +1,13 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { avatarListType } from "@/types";
+import { User, userProject } from "@/types";
+import { getInitials } from "@/lib/utils";
 
-const AvatarList = ({ avatarList }: { avatarList: avatarListType[] }) => {
+const AvatarList = ({ avatarList }: { avatarList: userProject[] }) => {
   return (
     <div>
       <div className="flex">
-        {[
-          ...avatarList.slice(0, 3),
-          ...(avatarList.length > 3
-            ? [{ fallback: ` +${avatarList.length - 3}` }]
-            : []),
-        ].map((avatar, index) => (
+        {avatarList.map((avatar, index) => (
           <Avatar
             key={index}
             className={`relative ${
@@ -19,8 +15,15 @@ const AvatarList = ({ avatarList }: { avatarList: avatarListType[] }) => {
             } border border-white`}
             style={{ zIndex: avatarList.length - index }}
           >
-            {avatar.src && <AvatarImage src={avatar.src} alt={avatar.alt} />}
-            <AvatarFallback>{avatar.fallback}</AvatarFallback>
+            {avatar.user.profile && (
+              <AvatarImage
+                src={avatar.user.profile}
+                alt={avatar.user.profile}
+              />
+            )}
+            <AvatarFallback>
+              {getInitials(`${avatar.user.firstName} ${avatar.user.lastName}`)}
+            </AvatarFallback>
           </Avatar>
         ))}
       </div>

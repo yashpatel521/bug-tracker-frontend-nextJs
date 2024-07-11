@@ -2,7 +2,7 @@
 import { createContext, useEffect, useState, ReactNode } from "react";
 import Cookies from "js-cookie";
 import { LoginUser } from "@/types";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 interface GlobalContextProps {
   showNavModal: boolean;
@@ -25,6 +25,7 @@ export default function GlobalState({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<LoginUser | boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const token = Cookies.get("token") || "";
@@ -44,10 +45,12 @@ export default function GlobalState({ children }: { children: ReactNode }) {
     } else {
       setIsAuthUser(false);
       setUser(false);
-      router.push("/login");
+      if (pathname !== "/login" && pathname !== "/") {
+        router.push("/login");
+      }
     }
     setLoading(false);
-  }, [router]);
+  }, [router, pathname]);
 
   const logout = () => {
     Cookies.remove("token");

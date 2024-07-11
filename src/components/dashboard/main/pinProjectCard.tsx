@@ -4,13 +4,7 @@ import { pinProjectCardType } from "@/types";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Icons } from "@/components/ui/icons";
-
-function getInitials(str: string) {
-  return str
-    .split(" ")
-    .map((word) => word.charAt(0))
-    .join("");
-}
+import { getInitials } from "@/lib/utils";
 
 const PinProjectCard = ({ data }: { data: pinProjectCardType }) => {
   const PlayStoreIcon = Icons["PlayStore"];

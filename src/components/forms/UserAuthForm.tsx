@@ -2,13 +2,14 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { cn, login } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Icons } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { GlobalContext } from "@/context";
 import Cookies from "js-cookie";
+import { SECURE_POST } from "@/lib/request";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 const initialFormdata = {
@@ -49,14 +50,16 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ className, ...props }) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await login(formData);
+      // const res = await login(formData);
 
-      if (res) {
+      const response = await SECURE_POST("/users/login", formData);
+
+      if (response.success) {
         setIsAuthUser(true);
-        setUser(res?.user);
+        setUser(response.data.user);
         setFormData(initialFormdata);
-        Cookies.set("token", res?.accessToken);
-        localStorage.setItem("user", JSON.stringify(res?.user));
+        Cookies.set("token", response.data.accessToken);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
       } else {
         setIsAuthUser(false);
       }

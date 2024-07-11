@@ -24,7 +24,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 }) => (
   <div>
     <div
-      className={`p-1 border-2 border-dashed rounded-md cursor-pointer ${
+      className={`p-2 border rounded-md border-gray-700 cursor-pointer ${
         dragging ? "border-blue-500" : "border-gray-300"
       }`}
       onDragOver={handleDragOver}

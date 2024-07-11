@@ -16,7 +16,7 @@ export const accessToken = (): ResponseType | string => {
 };
 
 // const token = accessToken;
-export async function POST(url: string, data: any) {
+export async function POST(url: string, data: any): Promise<ResponseType> {
   try {
     const res = await axios.post(`${BACKEND_URL}${url}`, data);
     return res.data;
@@ -53,7 +53,10 @@ export async function SECURE_GET(url: string): Promise<ResponseType> {
   }
 }
 
-export async function SECURE_POST(url: string, dataBody: any) {
+export async function SECURE_POST(
+  url: string,
+  dataBody: any
+): Promise<ResponseType> {
   const token = accessToken();
 
   // Create headers with authorization token

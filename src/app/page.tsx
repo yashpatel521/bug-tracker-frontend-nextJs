@@ -52,8 +52,8 @@ const LandingPage = () => {
                 <Image
                   src="/images/mobile.png"
                   alt="Mobile View"
-                  layout="fill"
-                  objectFit="contain"
+                  width={128}
+                  height={128}
                 />
               </motion.div>
               <motion.div
@@ -65,8 +65,8 @@ const LandingPage = () => {
                 <Image
                   src="/images/tablet.png"
                   alt="Tablet View"
-                  layout="fill"
-                  objectFit="contain"
+                  width={192}
+                  height={192}
                 />
               </motion.div>
               <motion.div
@@ -78,8 +78,8 @@ const LandingPage = () => {
                 <Image
                   src="/images/laptop.png"
                   alt="Laptop View"
-                  layout="fill"
-                  objectFit="contain"
+                  width={192}
+                  height={192}
                 />
               </motion.div>
               <motion.div
@@ -91,8 +91,8 @@ const LandingPage = () => {
                 <Image
                   src="/images/desktop.png"
                   alt="Desktop View"
-                  layout="fill"
-                  objectFit="contain"
+                  width={384}
+                  height={384}
                 />
               </motion.div>
             </div>

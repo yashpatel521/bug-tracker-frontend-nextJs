@@ -105,38 +105,31 @@ export interface avatarListType {
 }
 
 export interface projectCardType {
-  appId: string | number;
-  title: string;
-  developer: string;
-  src: string;
-  teamMembers: avatarListType[];
-}
-
-export interface projectCardPanigateType {
-  items: projectCardType[];
-  totalItems: number;
-  currentPage: number;
-  totalPages: number;
-}
-
-export type Employee = {
   id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
-  gender: string;
-  date_of_birth: string; // Consider using a proper date type if possible
-  street: string;
-  city: string;
-  state: string;
-  country: string;
-  zipcode: string;
-  longitude?: number; // Optional field
-  latitude?: number; // Optional field
-  job: string;
-  profile_picture?: string | null; // Profile picture can be a string (URL) or null (if no picture)
-};
+  title: string;
+  description: string;
+  descriptionHTML: string;
+  summary: string;
+  appId: string;
+  url: string;
+  appIcon: string;
+  developer: string;
+  developerId: string;
+  developerEmail: string;
+  privacyPolicy: string;
+  score: number;
+  scoreText: string;
+  updated: number;
+  reviews: number;
+  ratings: number;
+  maxInstalls: number;
+  userProjects: userProject[];
+}
+
+export interface userProject {
+  id: number;
+  user: User;
+}
 
 export type teamMember = {
   id: number;
@@ -147,11 +140,12 @@ export type teamMember = {
 
 export type User = {
   id: number;
-  name: string;
-  src: string;
-  role: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  profile: string;
   status: string;
-  projectAssigned?: number[] | any[];
+  createdAt: string;
 };
 
 export interface userPaginateType {
