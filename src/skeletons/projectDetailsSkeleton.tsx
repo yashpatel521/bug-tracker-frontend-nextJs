@@ -1,22 +1,12 @@
 "use client";
 
-import React, { Suspense } from "react";
-import { useParams } from "next/navigation";
-import BreadCrumb from "@/components/ui/breadcrumb";
+import React from "react";
 import { Separator } from "@/components/ui/separator";
-import ProjectHeader from "@/components/dashboard/projectDetails/ProjectHeader";
-import { pinProjectCardData } from "@/data/pinProjectCard.data";
-import AppDetails from "@/components/dashboard/projectDetails/AppDetails";
-import TeamMember from "@/components/dashboard/projectDetails/TeamMember";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Overview } from "@/components/dashboard/main/overview";
-import BugTable from "@/components/dashboard/projectDetails/bugs/bugTable";
-import HistoryInstallTable from "@/components/dashboard/projectDetails/HistoryInstallTable";
 import BreadCrumbSkeleton from "@/skeletons/BreadcrumbSkeleton";
 import ProjectHeaderSkeleton from "@/skeletons/ProjectHeaderSkeleton";
 import AppDetailsSkeleton from "@/skeletons/AppDetailsSkeleton";
 
-const ProjectDetails = () => {
+const ProjectDetailsSkeleton = () => {
   return (
     <div className="flex-1 p-3 pt-6 md:p-8">
       <BreadCrumbSkeleton />
@@ -44,4 +34,4 @@ const ProjectDetails = () => {
   );
 };
 
-export default ProjectDetails;
+export default ProjectDetailsSkeleton;

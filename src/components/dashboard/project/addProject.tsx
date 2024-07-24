@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { SECURE_POST } from "@/lib/request";
 import {
@@ -12,17 +12,13 @@ import {
 } from "@/components/ui/select";
 import ImageUpload from "../ImageUpload";
 import { useImageUpload } from "@/components/hooks/useImageUpload";
-import useUserData from "@/components/hooks/useUserData";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { getInitials } from "@/lib/utils";
-import SearchableDropdown from "@/components/ui/searchableDropdown";
+import { customToast } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { ResponseType } from "@/types";
+import { useRouter } from "next/navigation";
 
 const AddProjectForm = () => {
-  const user = useUserData();
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  const [successMessage, setSuccessMessage] = useState<string>("");
-  const [titleOptions, setTitleOptions] = useState<string[]>([]);
-  const [selectedTitle, setSelectedTitle] = useState<string>("");
   const {
     imagePreview,
     dragging,
@@ -34,21 +30,21 @@ const AddProjectForm = () => {
     handleDrop,
   } = useImageUpload();
 
+  const { replace } = useRouter();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    setErrorMessage("");
-    setSuccessMessage("");
     event.preventDefault();
+    const formDataObject = new FormData(event.currentTarget);
 
-    const formData = new FormData(event.currentTarget);
-
-    const response = await SECURE_POST("/projects", formData);
+    const response: ResponseType = await SECURE_POST(
+      "/projects",
+      formDataObject
+    );
+    console.log(response);
     if (response.success) {
-      setSuccessMessage("Project added successfully!");
+      customToast("Project added successfully.", "success");
+      replace(`/dashboard/projects/${response.data.id}`);
     } else {
-      console.error("Failed to add project:", response.message);
-      setErrorMessage(
-        response.message || "An error occurred while adding the project."
-      );
+      customToast(response.message || "Failed to create Project", "error");
     }
   };
 
@@ -64,10 +60,12 @@ const AddProjectForm = () => {
               <label htmlFor="title" className="block font-medium text-md">
                 Title:
               </label>
-              <SearchableDropdown
-                onSelect={setSelectedTitle}
-                placeholder="Select or enter project title"
+              <Input
+                type="text"
+                id="title"
                 name="title"
+                placeholder="Enter title"
+                required
               />
             </div>
 
@@ -75,13 +73,11 @@ const AddProjectForm = () => {
               <label htmlFor="appId" className="block font-medium text-md">
                 App ID:
               </label>
-              <input
+              <Input
                 type="text"
                 id="appId"
                 name="appId"
-                className="mt-1 p-2 w-full border rounded-md shadow-sm h-8"
                 placeholder="Enter app ID"
-                required
               />
             </div>
             <div className="mb-4">
@@ -91,27 +87,22 @@ const AddProjectForm = () => {
               >
                 Developer ID:
               </label>
-              <input
+              <Input
                 type="text"
                 id="developerId"
                 name="developerId"
-                className="mt-1 p-2 w-full border rounded-md shadow-sm h-8"
                 placeholder="Enter developer ID"
-                required
               />
             </div>
             <div className="mb-4">
               <label htmlFor="version" className="block font-medium text-md">
                 Version:
               </label>
-              <input
+              <Input
                 type="text"
                 id="version"
                 name="version"
-                className="mt-1 p-2 w-full border rounded-md shadow-sm h-8"
-                placeholder="Enter version"
                 defaultValue="1.0.0"
-                required
               />
             </div>
             <div className="mb-4">
@@ -121,26 +112,22 @@ const AddProjectForm = () => {
               >
                 Repository URL:
               </label>
-              <input
+              <Input
                 type="text"
                 id="repositoryUrl"
                 name="repositoryUrl"
-                className="mt-1 p-2 w-full border rounded-md shadow-sm h-8"
                 placeholder="Enter repository URL"
-                required
               />
             </div>
             <div className="mb-4">
               <label htmlFor="liveUrl" className="block font-medium text-md">
                 Live URL:
               </label>
-              <input
+              <Input
                 type="text"
                 id="liveUrl"
                 name="liveUrl"
-                className="mt-1 p-2 w-full border rounded-md shadow-sm h-8"
-                placeholder="Enter repository URL"
-                required
+                placeholder="Enter live URL"
               />
             </div>
             <div className="mb-4">
@@ -150,42 +137,34 @@ const AddProjectForm = () => {
               >
                 Firebase Account:
               </label>
-              <input
+              <Input
                 type="text"
                 id="firebaseAccount"
                 name="firebaseAccount"
-                className="mt-1 p-2 w-full border rounded-md shadow-sm h-8"
                 placeholder="Enter firebase account"
-                required
               />
-            </div>
-            <div className=" flex items-center mt-1 gap-2">
-              <label htmlFor="createBy" className="block font-medium text-md">
-                Created By:
-              </label>
-              <Avatar className="h-6 w-6">
-                <AvatarImage src={user?.profile} alt="Avatar" />
-                <AvatarFallback>
-                  {getInitials(user?.firstName + " " + user?.lastName)}
-                </AvatarFallback>
-              </Avatar>
-              {user?.firstName + " " + user?.lastName}
             </div>
             <div className="mb-4">
               <label htmlFor="status" className="block font-medium text-md">
                 Status:
               </label>
-              <Select name="status" defaultValue="inactive">
+              <Select name="status" defaultValue="inprogress">
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select Status" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem value="active" className="capitalize">
-                      Active
+                    <SelectItem value="complete" className="capitalize">
+                      Complete
                     </SelectItem>
-                    <SelectItem value="inactive" className="capitalize">
-                      Inactive
+                    <SelectItem value="inprogress" className="capitalize">
+                      In Progress
+                    </SelectItem>
+                    <SelectItem value="onhold" className="capitalize">
+                      On Hold
+                    </SelectItem>
+                    <SelectItem value="inreview" className="capitalize">
+                      In Review
                     </SelectItem>
                   </SelectGroup>
                 </SelectContent>
@@ -236,25 +215,14 @@ const AddProjectForm = () => {
               >
                 Description:
               </label>
-              <textarea
+              <Textarea
                 id="description"
                 name="description"
-                className="mt-1 p-2 w-full border rounded-md shadow-sm h-32"
                 placeholder="Enter project description"
-                required
               />
             </div>
           </div>
-          {errorMessage && (
-            <div className="mb-2 p-2 text-sm text-red-700" role="alert">
-              {errorMessage}
-            </div>
-          )}
-          {successMessage && (
-            <div className="mb-2 p-2 text-sm text-green-700" role="alert">
-              {successMessage}
-            </div>
-          )}
+
           <Button
             type="submit"
             className="w-full py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"

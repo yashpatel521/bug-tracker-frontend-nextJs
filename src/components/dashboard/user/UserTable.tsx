@@ -12,10 +12,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { LoginUser } from "@/types";
+import { User } from "@/types";
 import Link from "next/link";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { SECURE_GET } from "@/lib/request";
+import { customToast } from "@/lib/utils";
 
 export default function UserTable({
   query,
@@ -41,12 +42,16 @@ export default function UserTable({
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
+  const { replace } = useRouter();
   useEffect(() => {
     const getData = async () => {
       const paramUrl = `/users?currentPage=${currentPage}&query=${query}&sortBy=${sortBy}&sortOrder=${sortOrder}`;
       const responseApi = await SECURE_GET(paramUrl);
       if (responseApi.success) {
         setResponse(responseApi);
+      } else {
+        customToast(responseApi.message, "error");
+        replace("/dashboard");
       }
     };
     getData();
@@ -62,6 +67,7 @@ export default function UserTable({
     router,
     searchParams,
     response.data.totalPages,
+    replace, // Include the missing dependency 'replace'
   ]);
 
   return (
@@ -70,8 +76,12 @@ export default function UserTable({
         <TableRow>
           <TableHead className="w-[100px]">User ID</TableHead>
           <TableHead className="text-center w-[400px]">Name</TableHead>
+          <TableHead className="text-center w-[400px]">Email</TableHead>
           <TableHead className="text-center">
-            <SortButton title="Role" sortKey="subRole" />
+            <SortButton title="Role" sortKey="role" />
+          </TableHead>
+          <TableHead className="text-center">
+            <SortButton title="SubRole" sortKey="subRole" />
           </TableHead>
           <TableHead className="text-center">
             <SortButton title="status" sortKey="status" />
@@ -81,7 +91,7 @@ export default function UserTable({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {response.data.users.map((item: LoginUser) => (
+        {response.data.users.map((item: User) => (
           <TableRow key={item.id}>
             <TableCell>{item.id}</TableCell>
             <TableCell className="flex items-center justify-center">
@@ -95,9 +105,11 @@ export default function UserTable({
                 {item.firstName} {item.lastName}
               </div>
             </TableCell>
-            <TableCell>{item.subRole.name}</TableCell>
+            <TableCell>{item.email}</TableCell>
+            <TableCell>{item.role?.name}</TableCell>
+            <TableCell>{item.subRole?.name}</TableCell>
             <TableCell>{item.status}</TableCell>
-            <TableCell>{1}</TableCell>
+            <TableCell>{item.projectAssigned}</TableCell>
             <TableCell className="flex justify-center">
               <Link href={`./user/${item.id}`}>
                 <EyeIcon />

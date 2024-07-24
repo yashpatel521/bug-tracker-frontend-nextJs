@@ -1,18 +1,18 @@
 export function abbreviateNumber(num: number): string {
   if (num >= 1e15) {
-    return (num / 1e15).toFixed(1) + "Q";
+    return (num / 1e15).toFixed(0) + "Q+";
   }
   if (num >= 1e12) {
-    return (num / 1e12).toFixed(1) + "T";
+    return (num / 1e12).toFixed(0) + "T+";
   }
   if (num >= 1e9) {
-    return (num / 1e9).toFixed(1) + "B";
+    return (num / 1e9).toFixed(0) + "B+";
   }
   if (num >= 1e6) {
-    return (num / 1e6).toFixed(1) + "M";
+    return (num / 1e6).toFixed(0) + "M+";
   }
   if (num >= 1e3) {
-    return (num / 1e3).toFixed(1) + "K";
+    return (num / 1e3).toFixed(0) + "K+";
   }
   return num.toString();
 }

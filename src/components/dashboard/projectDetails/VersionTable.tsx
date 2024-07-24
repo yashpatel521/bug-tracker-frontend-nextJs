@@ -2,7 +2,6 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 import {
   Table,
   TableBody,
@@ -12,67 +11,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Button } from "@/components/ui/button";
-import { members } from "@/data/teamMembers";
 import { Icons } from "@/components/ui/icons";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Version } from "@/types";
+import { dateToString, getInitials } from "@/lib/utils";
+import Link from "next/link";
 
-function NewVersionDialog() {
+const VersionTable = ({
+  versions,
+  projectId,
+}: {
+  versions: Version[];
+  projectId: number;
+}) => {
   const VersionIcon = Icons["FilePlus"];
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <VersionIcon className="w-10 h-10" />
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when youre done.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input
-              id="name"
-              defaultValue="Pedro Duarte"
-              className="col-span-3"
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input
-              id="username"
-              defaultValue="@peduarte"
-              className="col-span-3"
-            />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
-const VersionTable = () => {
   const DownloadIcon = Icons["download"];
+
   return (
     <div className="m-1 col-span-2">
       <Card>
@@ -80,7 +33,9 @@ const VersionTable = () => {
           <CardTitle>
             <div className="flex justify-between items-center mb-2">
               Versions History
-              <NewVersionDialog />
+              <Link href={`./${projectId}/addVersion`}>
+                <VersionIcon className="h-10 w-10" />
+              </Link>
             </div>
           </CardTitle>
           <Separator />
@@ -98,7 +53,7 @@ const VersionTable = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {Array.from({ length: 10 }, (_, index) => (
+                {versions.map((version: Version, index) => (
                   <TableRow key={index}>
                     <TableCell className="capitalize text-center">
                       {++index}
@@ -106,21 +61,27 @@ const VersionTable = () => {
                     <TableCell className="text-center font-medium flex items-center align-middle gap-2 capitalize">
                       <Avatar className="h-6 w-6 my-2 ">
                         <AvatarImage
-                          src="https://github.com/shadcn.png"
-                          alt="Avatar"
+                          src={version.createdBy.profile}
+                          alt={version.createdBy.profile}
                         />
-                        <AvatarFallback>ad</AvatarFallback>
+                        <AvatarFallback>
+                          {getInitials(
+                            `${version.createdBy.firstName} ${version.createdBy.lastName}`
+                          )}
+                        </AvatarFallback>
                       </Avatar>
-                      John Doe
+                      {`${version.createdBy.firstName} ${version.createdBy.lastName}`}
                     </TableCell>
                     <TableCell className="text-center capitalize">
-                      v {index}
+                      {version.versionNumber}
                     </TableCell>
                     <TableCell className="capitalize text-center">
-                      June {index}, 2021
+                      {dateToString(version.createdAt)}
                     </TableCell>
                     <TableCell className="text-center flex justify-center">
-                      <DownloadIcon />
+                      <a href={version.liveUrl} download target="_blank">
+                        <DownloadIcon className="h-8 w-8" />
+                      </a>
                     </TableCell>
                   </TableRow>
                 ))}

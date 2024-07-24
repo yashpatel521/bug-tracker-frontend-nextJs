@@ -1,13 +1,15 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { User, userProject } from "@/types";
+import { UserProject } from "@/types";
 import { getInitials } from "@/lib/utils";
 
-const AvatarList = ({ avatarList }: { avatarList: userProject[] }) => {
+const AvatarList = ({ avatarList }: { avatarList: UserProject[] }) => {
+  const maxAvatars = 4;
+
   return (
     <div>
       <div className="flex">
-        {avatarList.map((avatar, index) => (
+        {avatarList.slice(0, maxAvatars).map((avatar, index) => (
           <Avatar
             key={index}
             className={`relative ${
@@ -15,17 +17,28 @@ const AvatarList = ({ avatarList }: { avatarList: userProject[] }) => {
             } border border-white`}
             style={{ zIndex: avatarList.length - index }}
           >
-            {avatar.user.profile && (
+            {avatar.user.profile ? (
               <AvatarImage
                 src={avatar.user.profile}
                 alt={avatar.user.profile}
               />
+            ) : (
+              <AvatarFallback>
+                {getInitials(
+                  `${avatar.user.firstName} ${avatar.user.lastName}`
+                )}
+              </AvatarFallback>
             )}
-            <AvatarFallback>
-              {getInitials(`${avatar.user.firstName} ${avatar.user.lastName}`)}
-            </AvatarFallback>
           </Avatar>
         ))}
+        {avatarList.length > maxAvatars && (
+          <Avatar
+            className="relative -ml-3 border border-white bg-gray-200 text-gray-600"
+            style={{ zIndex: 0 }}
+          >
+            <AvatarFallback>+{avatarList.length - maxAvatars}</AvatarFallback>
+          </Avatar>
+        )}
       </div>
     </div>
   );

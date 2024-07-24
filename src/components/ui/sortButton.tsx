@@ -24,7 +24,7 @@ const SortButton = ({ title, sortKey }: { title: string; sortKey: string }) => {
   return (
     <Button
       variant="ghost"
-      className="bg-transparent hover:bg-transparent"
+      className="bg-transparent hover:bg-transparent "
       onClick={(e) => {
         e.preventDefault();
         handleSort(sortKey);

@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import GlobalState from "@/context";
 import { Metadata } from "next";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Brighter Bee",
@@ -23,6 +24,7 @@ export default function RootLayout({
         <NextTopLoader color="var(--themeColor)" showSpinner={false} />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <GlobalState>{children}</GlobalState>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

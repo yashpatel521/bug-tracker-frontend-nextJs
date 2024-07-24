@@ -1,79 +1,25 @@
 "use client";
 
+import { abbreviateNumber } from "@/lib/abbreviateNumber";
+import { DailyStats } from "@/types";
 import {
   Area,
   AreaChart,
-  Bar,
-  BarChart,
-  CartesianGrid,
   Legend,
-  Line,
-  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
 
-const data = [
-  {
-    date: "2021-01-01",
-    installs: 4000,
-  },
-  {
-    date: "2021-02-01",
-    installs: 3000,
-  },
-  {
-    date: "2021-03-01",
-    installs: 2000,
-  },
-  {
-    date: "2021-04-01",
-    installs: 2780,
-  },
-  {
-    date: "2021-05-01",
-    installs: 1890,
-  },
-  {
-    date: "2021-06-01",
-    installs: 2390,
-  },
-  {
-    date: "2021-07-01",
-    installs: 3490,
-  },
-  {
-    date: "2021-08-01",
-    installs: 4000,
-  },
-  {
-    date: "2021-09-01",
-    installs: 3000,
-  },
-  {
-    date: "2021-10-01",
-    installs: 2000,
-  },
-  {
-    date: "2021-11-01",
-    installs: 2780,
-  },
-  {
-    date: "2021-12-01",
-    installs: 1890,
-  },
-];
-
-export function Overview() {
+export function Overview({ stats }: { stats: DailyStats[] }) {
   return (
     <div className="m-1 col-span-2 border py-2 rounded-xl min-h-48">
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           width={500}
           height={300}
-          data={data}
+          data={stats}
           margin={{
             top: 5,
             right: 30,
@@ -82,12 +28,12 @@ export function Overview() {
           }}
         >
           <XAxis dataKey="date" />
-          <YAxis />
+          <YAxis tickFormatter={abbreviateNumber} />
           <Tooltip />
           <Legend />
           <Area
             type="monotone"
-            dataKey="installs"
+            dataKey="installCount"
             stroke="var(--themeColor)"
             fill="#ffedad"
           />

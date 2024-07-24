@@ -61,6 +61,23 @@ export const Icons: any = {
   moon: Moon,
   laptop: Laptop,
   FolderGit2: FolderGit2,
+  SecureTick: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      className="size-6"
+      {...props}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"
+      />
+    </svg>
+  ),
   Role: (props: IconProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -83,7 +100,7 @@ export const Icons: any = {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      stroke-width="1.5"
+      strokeWidth="1.5"
       stroke="var(--themeColor)"
       className="size-6"
       {...props}
@@ -117,7 +134,7 @@ export const Icons: any = {
       xmlns="http://www.w3.org/2000/svg"
       fill="var(--themeColor)"
       viewBox="0 0 24 24"
-      stroke-width="1.5"
+      strokeWidth="1.5"
       stroke="currentColor"
       className="size-6"
       {...props}
@@ -190,6 +207,22 @@ export const Icons: any = {
       <path
         fill="var(--themeColor)"
         d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
+      />
+    </svg>
+  ),
+  UserMinus: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="var(--themeColor)"
+      className="size-6"
+      {...props}
+    >
+      <path
+        fill="var(--themeColor)"
+        d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z"
       />
     </svg>
   ),
@@ -305,6 +338,31 @@ export const Icons: any = {
       <path
         fill="var(--themeColor)"
         d="M32 32C32 14.3 46.3 0 64 0H320c17.7 0 32 14.3 32 32s-14.3 32-32 32H290.5l11.4 148.2c36.7 19.9 65.7 53.2 79.5 94.7l1 3c3.3 9.8 1.6 20.5-4.4 28.8s-15.7 13.3-26 13.3H32c-10.3 0-19.9-4.9-26-13.3s-7.7-19.1-4.4-28.8l1-3c13.8-41.5 42.8-74.8 79.5-94.7L93.5 64H64C46.3 64 32 49.7 32 32zM160 384h64v96c0 17.7-14.3 32-32 32s-32-14.3-32-32V384z"
+      />
+    </svg>
+  ),
+  UnPin: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="20"
+      width="20"
+      viewBox="0 0 512 512"
+      fill="var(--themeColor)"
+      {...props}
+    >
+      <g transform="rotate(45, 192, 256)">
+        <path d="M32 32C32 14.3 46.3 0 64 0H320c17.7 0 32 14.3 32 32s-14.3 32-32 32H290.5l11.4 148.2c36.7 19.9 65.7 53.2 79.5 94.7l1 3c3.3 9.8 1.6 20.5-4.4 28.8s-15.7 13.3-26 13.3H32c-10.3 0-19.9-4.9-26-13.3s-7.7-19.1-4.4-28.8l1-3c13.8-41.5 42.8-74.8 79.5-94.7L93.5 64H64C46.3 64 32 49.7 32 32zM160 384h64v96c0 17.7-14.3 32-32 32s-32-14.3-32-32V384z" />
+      </g>
+      <line
+        x1="0"
+        y1="0"
+        x2="512"
+        y2="512"
+        stroke="gray"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="32"
+        transform="rotate(180, 256 , 256)"
       />
     </svg>
   ),

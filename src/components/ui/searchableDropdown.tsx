@@ -1,12 +1,8 @@
 import { SECURE_GET } from "@/lib/request";
 import React, { useState, useEffect, useRef } from "react";
 import { useDebouncedCallback } from "use-debounce";
-
-interface SearchableDropdownProps {
-  onSelect: (value: string) => void;
-  placeholder: string;
-  name: string;
-}
+import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
+import { SearchableDropdownProps, SearchDropdownProps } from "@/types";
 
 const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
   onSelect,
@@ -14,18 +10,15 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
   name,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [options, setOptions] = useState<string[]>([]);
+  const [options, setOptions] = useState<SearchDropdownProps[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const fetchOptions = async (search: string) => {
     try {
-      const response = await SECURE_GET(`/project/titles?term=${search}`);
-      console.log(response);
+      const response = await SECURE_GET(`/api/search?term=${search}`);
       if (response.success) {
         setOptions(response.data);
-      } else {
-        console.error("Failed to fetch options:", response);
       }
     } catch (error) {
       console.error("Failed to fetch options:", error);
@@ -78,14 +71,29 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
         className="mt-1 p-2 w-full border rounded-md shadow-sm h-8"
       />
       {isOpen && options.length > 0 && (
-        <div className="absolute z-10 w-full bg-white border rounded-md shadow-lg max-h-40 overflow-y-auto">
+        <div className="absolute z-10 w-full bg-white dark:bg-black border rounded-md shadow-lg max-h-40 overflow-y-auto">
           {options.map((option, index) => (
             <div
               key={index}
-              className="p-2 hover:bg-gray-200 cursor-pointer"
-              onClick={() => handleSelect(option)}
+              className="p-2 hover:bg-gray-200 dark:hover:bg-gray-900 cursor-pointer flex"
+              onClick={() => handleSelect(option.appId)}
             >
-              {option}
+              <Avatar className="h-9 w-9">
+                <AvatarImage
+                  src={option.icon}
+                  alt={option.title}
+                  onError={(e) => (e.currentTarget.style.display = "none")}
+                />
+                <AvatarFallback>{option.title[0]}</AvatarFallback>
+              </Avatar>
+              <div className="ml-4 space-y-1">
+                <p className="text-sm font-medium leading-none">
+                  {option.title}
+                </p>
+                <p className="text-sm text-gray-500 flex gap-2 items-center">
+                  {option.appId}
+                </p>
+              </div>
             </div>
           ))}
         </div>

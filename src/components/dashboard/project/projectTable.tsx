@@ -10,13 +10,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { projectCardType } from "@/types";
+import { ProjectDetails } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 export function ProjectTable({
   projectData,
 }: {
-  projectData: projectCardType[];
+  projectData: ProjectDetails[];
 }) {
   if (!projectData.length) return <div>No project data available</div>;
 
@@ -44,15 +44,15 @@ export function ProjectTable({
                   width={40}
                   height={40}
                   alt="icon"
-                  className="rounded-full"
+                  className="rounded-full w-10 h-10"
                   unoptimized={true}
                 />
                 <div className="capitalize">{item.title}</div>
               </div>
             </TableCell>
-            <TableCell>{item.developer}</TableCell>
+            <TableCell>{item.developer || "-"}</TableCell>
             <TableCell>
-              <AvatarList avatarList={item.userProjects} />
+              <AvatarList avatarList={item.userProjects ?? []} />
             </TableCell>
             <TableCell>
               <Link href={`./projects/${item.id}`}>

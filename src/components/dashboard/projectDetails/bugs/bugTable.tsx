@@ -9,32 +9,36 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import SearchInput from "../../searchInput";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Bug } from "@/types";
+import { Bug, Version } from "@/types";
 import SortButton from "@/components/ui/sortButton";
-import axios from "axios";
 import { BugSheet } from "./bugSheet";
 import { FeatureBadge, PriorityBadge, StatusBadge } from "./tableProps";
 import BugSkeletonTable from "@/skeletons/bugSkeleton";
 import { truncateWords } from "@/lib/abbreviateNumber";
+import BugTableHeader from "./bugTableHeader";
+import { SECURE_GET } from "@/lib/request";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getInitials } from "@/lib/utils";
 
 export default function BugTable({
   query,
   currentPage,
   sortBy,
   sortOrder,
+  versionList,
+  versionId,
+  projectId,
 }: {
   query: string;
   currentPage: number;
   sortBy: string;
   sortOrder: string;
+  versionList: Version[];
+  versionId: string | number;
+  projectId: number;
 }) {
-  const addBug = {
-    href: "",
-    icon: "Cube",
-  };
   const [bugs, setBugs] = useState<Bug[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(true); // Added loading state
@@ -46,15 +50,18 @@ export default function BugTable({
   const fetchBugs = async () => {
     setIsLoading(true); // Start loading
     try {
-      const response = await axios.get("/api/bugs", {
-        params: { query, currentPage, sortBy, sortOrder },
-      });
-      setBugs(response.data.bugs);
-      const totalPages = Math.ceil(response.data.total / 10);
-      setTotalPages(totalPages);
+      const response = await SECURE_GET(
+        `/projects/${projectId}/bugs/${versionId}?sortBy=${sortBy}&sortOrder=${sortOrder}&query=${query}&currentPage=${currentPage}`
+      );
       const params = new URLSearchParams(searchParams ?? "");
-      params.set("totalPage", totalPages.toString());
-      replace(`${pathname}?${params.toString()}`);
+      params.set("versionId", versionList[0].id.toString());
+      if (response.success) {
+        setBugs(response.data.bugs);
+        const totalPages = Math.ceil(response.data.total / 10);
+        setTotalPages(totalPages);
+        params.set("totalPage", totalPages.toString());
+        replace(`${pathname}?${params.toString()}`);
+      }
     } catch (error) {
       console.error("Failed to fetch bugs:", error);
     } finally {
@@ -64,27 +71,27 @@ export default function BugTable({
 
   useEffect(() => {
     fetchBugs();
-  }, [query, currentPage, sortBy, sortOrder]);
+  }, [query, currentPage, sortBy, sortOrder, versionId]);
 
   return (
     <>
-      <SearchInput placeholder="Search by task..." addButton={addBug} />
-
+      <BugTableHeader versionList={versionList} />
       <Table className="border">
         <TableHeader>
           <TableRow>
             <TableHead>
               <SortButton title="id" sortKey="id" />
             </TableHead>
-            <TableHead>Title</TableHead>
-            <TableHead>Type</TableHead>
-            <TableHead>
+            <TableHead className="text-left">Title</TableHead>
+            <TableHead className="text-center">Type</TableHead>
+            <TableHead className="text-center">
               <SortButton title="Status" sortKey="status" />
             </TableHead>
-            <TableHead>
+            <TableHead className="text-center">
               <SortButton title="Priority" sortKey="priority" />
             </TableHead>
-            <TableHead>Action</TableHead>
+            <TableHead className="text-center">Created By</TableHead>
+            <TableHead className="text-center">Assigned To</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -94,7 +101,7 @@ export default function BugTable({
             bugs.map((bug) => (
               <TableRow key={bug.id}>
                 <TableCell>
-                  <BugSheet title={bug.id} />
+                  <BugSheet bugId={bug.id} />
                 </TableCell>
 
                 <TableCell>
@@ -105,19 +112,59 @@ export default function BugTable({
                   </div>
                 </TableCell>
                 <TableCell>
-                  <FeatureBadge s={bug.label} />
+                  <FeatureBadge s={bug.type} />
                 </TableCell>
                 <TableCell>
-                  <div className="flex  items-center">
-                    <StatusBadge s={bug.status} />
-                  </div>
+                  <StatusBadge s={bug.status} />
                 </TableCell>
                 <TableCell>
-                  <div className="flex items-center">
-                    <PriorityBadge s={bug.priority} />
+                  <PriorityBadge s={bug.priority} />
+                </TableCell>
+                <TableCell className="font-medium flex items-center align-middle justify-center m-auto gap-2 capitalize">
+                  <Avatar className="h-6 w-6 my-2 ">
+                    <AvatarImage
+                      src={bug.reportedBy.profile}
+                      alt={`${bug.reportedBy.firstName} ${bug.reportedBy.lastName}`}
+                    />
+                    <AvatarFallback>
+                      {getInitials(
+                        `${bug.reportedBy.firstName} ${bug.reportedBy.lastName}`
+                      )}
+                    </AvatarFallback>
+                  </Avatar>
+                  {bug.reportedBy.firstName} {bug.reportedBy.lastName}
+                </TableCell>
+                <TableCell>
+                  <div className="flex align-middle justify-center">
+                    {bug.assignedTo.slice(0, 4).map((user, index) => (
+                      <Avatar
+                        key={index}
+                        className={`relative ${
+                          index !== 0 ? "-ml-4" : ""
+                        } border border-white`}
+                        style={{ zIndex: bug.assignedTo.length - index }}
+                      >
+                        {user.profile ? (
+                          <AvatarImage src={user.profile} alt={user.profile} />
+                        ) : (
+                          <AvatarFallback>
+                            {getInitials(`${user.firstName} ${user.lastName}`)}
+                          </AvatarFallback>
+                        )}
+                      </Avatar>
+                    ))}
+                    {bug.assignedTo.length > 4 && (
+                      <Avatar
+                        className="relative -ml-3 border border-white bg-gray-200 text-gray-600"
+                        style={{ zIndex: 0 }}
+                      >
+                        <AvatarFallback>
+                          +{bug.assignedTo.length - 4}
+                        </AvatarFallback>
+                      </Avatar>
+                    )}
                   </div>
                 </TableCell>
-                <TableCell className="text-right">...</TableCell>
               </TableRow>
             ))
           )}

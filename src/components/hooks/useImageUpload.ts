@@ -48,6 +48,7 @@ export const useImageUpload = () => {
 
   return {
     imagePreview,
+    setImagePreview,
     dragging,
     fileInputRef,
     handleImageChange,

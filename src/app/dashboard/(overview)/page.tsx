@@ -1,7 +1,6 @@
 import { PinProjects } from "@/components/dashboard/main/pinProject";
-import ReportCardWrapper from "@/components/dashboard/main/reportCard";
+import ReportCardWrapper from "@/components/dashboard/main/reportCardWarpper";
 import TimeBasedGreeting from "@/components/TimeBaseGreeter";
-import { reportCardData } from "@/data/reportCard.data";
 
 export default async function page() {
   return (
@@ -12,10 +11,9 @@ export default async function page() {
         </h2>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
-        <ReportCardWrapper reportCardDatas={reportCardData} />
+        <ReportCardWrapper />
       </div>
       <div className="grid grid-cols-2 ">
-        <PinProjects />
         <PinProjects />
       </div>
     </div>

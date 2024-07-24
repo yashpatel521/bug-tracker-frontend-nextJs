@@ -8,7 +8,7 @@ import { ProjectTable } from "@/components/dashboard/project/projectTable";
 import SearchInput from "@/components/dashboard/searchInput";
 import ProjectsCardList from "@/components/dashboard/project/projectCardList";
 import { usePathname, useRouter } from "next/navigation";
-import { projectCardType, ResponseType } from "@/types";
+import { ProjectDetails, ResponseType } from "@/types";
 import { SECURE_GET } from "@/lib/request";
 
 const breadcrumbItems = [{ title: "Projects", link: "/dashboard/projects" }];
@@ -23,10 +23,7 @@ const Projects = ({
 }) => {
   const pathname = usePathname();
   const { replace } = useRouter();
-  const [projectData, setProjectData] = useState<projectCardType[] | null>(
-    null
-  );
-  const [isLoading, setIsLoading] = useState(true);
+  const [projectData, setProjectData] = useState<ProjectDetails[] | null>(null);
 
   const params = new URLSearchParams(searchParams ?? "");
   const query = searchParams?.query || "";
@@ -38,7 +35,6 @@ const Projects = ({
 
   useEffect(() => {
     const fetchProjectData = async () => {
-      setIsLoading(true);
       try {
         const response: ResponseType = await SECURE_GET(
           `/projects?query=${query}&currentPage=${currentPage}`
@@ -53,13 +49,11 @@ const Projects = ({
         }
       } catch (error) {
         console.error("Error fetching project data:", error);
-      } finally {
-        setIsLoading(false);
       }
     };
 
     fetchProjectData();
-  }, [query, currentPage, pathname, replace]);
+  }, [query, currentPage]);
 
   if (!projectData) {
     return <div>No project data available</div>; // Handle the case where no data is available

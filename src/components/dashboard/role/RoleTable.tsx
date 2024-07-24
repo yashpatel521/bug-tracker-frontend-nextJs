@@ -9,10 +9,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { SECURE_GET } from "@/lib/request";
+import { customToast } from "@/lib/utils";
 import { Role } from "@/types";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const RoleTable = () => {
+  const { replace } = useRouter();
   const [response, setResponse] = useState({
     success: false,
     data: [],
@@ -25,11 +28,12 @@ const RoleTable = () => {
       if (responseApi.success) {
         setResponse(responseApi);
       } else {
-        console.error("Failed to fetch roles", responseApi);
+        customToast(responseApi.message, "error");
+        replace("/dashboard");
       }
     };
     getData();
-  }, []);
+  }, [replace]);
   return (
     <div>
       <ScrollArea className="h-full max-h-96 w-full">

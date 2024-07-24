@@ -1,9 +1,9 @@
-import { projectCardType } from "@/types";
+import { ProjectDetails } from "@/types";
 import ProjectsCard from "./projectsCard";
 const ProjectsCardList = ({
   projectData,
 }: {
-  projectData: projectCardType[];
+  projectData: ProjectDetails[];
 }) => {
   if (!projectData.length) return <div>No project data available</div>;
   return (

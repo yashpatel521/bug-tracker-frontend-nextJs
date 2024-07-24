@@ -1,40 +1,69 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { pinProjectCardType } from "@/types";
+import { ProjectDetails } from "@/types";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Icons } from "@/components/ui/icons";
-import { getInitials } from "@/lib/utils";
+import { SECURE_POST } from "@/lib/request";
+import { customToast } from "@/lib/utils";
+import { abbreviateNumber } from "@/lib/abbreviateNumber";
+import ProjectBadge from "../projectBadge";
 
-const PinProjectCard = ({ data }: { data: pinProjectCardType }) => {
+const PinProjectCard = ({
+  data,
+  onUnpin,
+}: {
+  data: ProjectDetails;
+  onUnpin: (id: number) => void;
+}) => {
   const PlayStoreIcon = Icons["PlayStore"];
-  const CrossCircleIcon = Icons["CrossCircle"];
+  const UnPin = Icons["UnPin"];
+
+  const handleUnpinClick = async () => {
+    try {
+      const response = await SECURE_POST(`/projects/togglePin/${data.id}`, {
+        isPinned: false,
+      });
+      if (response.success) {
+        customToast("Project unpinned successfully", "success");
+        onUnpin(data.id);
+      } else {
+        customToast("Failed to unpin project", "error");
+      }
+    } catch (error) {
+      customToast("An error occurred while unpinning the project", "error");
+    }
+  };
+
   return (
     <div>
       <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src={data.icon} alt="Avatar" />
-          <AvatarFallback>{getInitials(data.title)}</AvatarFallback>
-        </Avatar>
+        <Link href={`./dashboard/projects/${data.id}`}>
+          <Avatar className="h-9 w-9">
+            <AvatarImage src={data.appIcon} alt={data.appIcon} />
+            <AvatarFallback>{data.title}</AvatarFallback>
+          </Avatar>
+        </Link>
+
         <div className="ml-4 space-y-1">
           <p className="text-sm font-medium leading-none">
-            <Link href="">{data.title}</Link>
+            <Link href={`./dashboard/projects/${data.id}`}>{data.title}</Link>
           </p>
           <p className="text-sm text-muted-foreground flex gap-2 items-center">
             {data.developer}
-            <Link href={data.url} className="mr-2" target="_blank">
-              <PlayStoreIcon className="w-3 h-3" />
+            <Link href={data.appUrl} className="mr-2" target="_blank">
+              <PlayStoreIcon className="w-4 h-4" />
             </Link>
           </p>
         </div>
 
-        <div className="ml-auto font-medium">{data.installs}</div>
-        <Button
-          className="bg-transparent hover:bg-transparent ml-5"
-          title="Unpin project"
-        >
-          <CrossCircleIcon />
-        </Button>
+        <ProjectBadge status={data.status} />
+        <div className="ml-auto font-medium mr-6 text-muted-foreground ">
+          {abbreviateNumber(data.maxInstalls)} installs
+        </div>
+        <button onClick={handleUnpinClick}>
+          <UnPin />
+        </button>
       </div>
     </div>
   );

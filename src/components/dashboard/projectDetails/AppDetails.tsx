@@ -1,10 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Icons } from "@/components/ui/icons";
 import { Separator } from "@/components/ui/separator";
+import { ProjectDetails } from "@/types";
+import Link from "next/link";
 import React from "react";
 
-const AppDetails = () => {
+const AppDetails = ({ appData }: { appData: ProjectDetails }) => {
   const DownloadIcon = Icons["Download"];
+  const SecureTickIcon = Icons["SecureTick"];
   return (
     <div className="m-1 col-span-1 ">
       <Card>
@@ -23,7 +26,7 @@ const AppDetails = () => {
             <p className="text-sm font-medium leading-none capitalize">
               Console Account
             </p>
-            <div className="ml-auto font-medium">Whatsapp.com</div>
+            <div className="ml-auto font-medium">{appData.appId}</div>
           </div>
           <div className="flex items-center my-1 ">
             <p className="text-sm font-medium leading-none capitalize">
@@ -41,7 +44,11 @@ const AppDetails = () => {
             <p className="text-sm font-medium leading-none capitalize">
               privacy policy
             </p>
-            <div className="ml-auto font-medium">-</div>
+            <div className="ml-auto font-medium">
+              <Link href={appData.privacyPolicyUrl} target="_blank">
+                <SecureTickIcon className="w-5 h-5 text-green-500" />
+              </Link>
+            </div>
           </div>
         </CardContent>
       </Card>

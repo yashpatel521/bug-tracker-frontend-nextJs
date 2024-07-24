@@ -11,8 +11,8 @@ export function FeatureBadge({ s }: { s: string }) {
       color: "text-blue-700",
     },
     {
-      value: "documentation",
-      label: "Documentation",
+      value: "enhancement",
+      label: "Enhancement",
       color: "text-green-700",
     },
   ];
@@ -22,11 +22,11 @@ export function FeatureBadge({ s }: { s: string }) {
 
   const label = labels.find((label) => label.value === s);
   return (
-    <>
+    <div className="flex align-middle justify-center items-center">
       {label && (
         <span className={`${styles} ${label.color}`}>{label.label}</span>
       )}
-    </>
+    </div>
   );
 }
 
@@ -37,7 +37,9 @@ import {
   CheckCircledIcon,
   CircleIcon,
   CrossCircledIcon,
+  PersonIcon,
   QuestionMarkCircledIcon,
+  RocketIcon,
   StopwatchIcon,
 } from "@radix-ui/react-icons";
 
@@ -47,7 +49,7 @@ export function StatusBadge({ s }: { s: string }) {
       value: "backlog",
       label: "Backlog",
       icon: QuestionMarkCircledIcon,
-      color: "text-muted-foreground",
+      color: "text-gray-500",
     },
     {
       value: "todo",
@@ -56,22 +58,34 @@ export function StatusBadge({ s }: { s: string }) {
       color: "text-blue-500",
     },
     {
-      value: "in progress",
+      value: "inprogress",
       label: "In Progress",
       icon: StopwatchIcon,
       color: "text-yellow-500",
     },
     {
-      value: "done",
-      label: "Done",
+      value: "complete",
+      label: "Complete",
       icon: CheckCircledIcon,
       color: "text-green-500",
     },
     {
-      value: "canceled",
-      label: "Canceled",
+      value: "closed",
+      label: "Closed",
       icon: CrossCircledIcon,
       color: "text-red-500",
+    },
+    {
+      value: "new",
+      label: "New",
+      icon: RocketIcon,
+      color: "text-purple-500",
+    },
+    {
+      value: "assigned",
+      label: "Assigned",
+      icon: PersonIcon,
+      color: "text-teal-500",
     },
   ];
   const status = statuses.find((status) => status.value === s);
@@ -80,12 +94,12 @@ export function StatusBadge({ s }: { s: string }) {
     return null;
   }
   return (
-    <>
+    <div className="flex align-middle justify-center items-center">
       <status.icon
         className={`mr-2 h-4 w-4 text-muted-foreground ${status.color}`}
       />
       <span>{status.label}</span>
-    </>
+    </div>
   );
 }
 
@@ -118,13 +132,13 @@ export function PriorityBadge({ s }: { s: string }) {
   }
 
   return (
-    <>
+    <div className="flex align-middle justify-center items-center">
       {priority.icon && (
         <priority.icon
           className={`mr-2 h-4 w-4 text-muted-foreground ${priority.color}`}
         />
       )}
       <span>{priority.label}</span>
-    </>
+    </div>
   );
 }

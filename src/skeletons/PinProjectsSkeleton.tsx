@@ -19,7 +19,7 @@ const PinProjectsSkeleton = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-8">
-            {[...Array(3)].map((_, index) => (
+            {[...Array(2)].map((_, index) => (
               <div key={index} className="bg-gray-300 h-20"></div>
             ))}
           </div>

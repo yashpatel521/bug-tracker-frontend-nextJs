@@ -9,9 +9,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { SECURE_GET } from "@/lib/request";
+import { customToast } from "@/lib/utils";
 import { SubRole } from "@/types";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 const SubRoleTable = () => {
+  const { replace } = useRouter();
   const [response, setResponse] = useState({
     success: false,
     data: [],
@@ -25,10 +28,12 @@ const SubRoleTable = () => {
         setResponse(responseApi);
       } else {
         console.error("Failed to fetch roles", responseApi);
+        customToast(responseApi.message, "error");
+        replace("/dashboard");
       }
     };
     getData();
-  }, []);
+  }, [replace]);
   return (
     <div>
       <div>

@@ -11,8 +11,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { DailyStats } from "@/types";
 
-const HistoryInstallTable = () => {
+const HistoryInstallTable = ({ history }: { history: DailyStats[] }) => {
   return (
     <div className="m-1 col-span-2">
       <Card>
@@ -30,21 +31,23 @@ const HistoryInstallTable = () => {
               <TableHeader>
                 <TableRow>
                   <TableHead className="text-center">Date</TableHead>
-                  <TableHead className="text-center">Total Installs</TableHead>
-                  <TableHead className="text-center">
-                    Today&apos;s Install
-                  </TableHead>
+                  <TableHead className="text-center">Installs</TableHead>
+                  <TableHead className="text-center">Rating</TableHead>
+                  <TableHead className="text-center">Reviews</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {Array.from({ length: 10 }, (_, index) => (
-                  <TableRow key={index}>
-                    <TableCell className=" text-center">
-                      June 12, 2021
+                {history.map((item) => (
+                  <TableRow key={item.id}>
+                    <TableCell className=" text-center">{item.date}</TableCell>
+                    <TableCell className="text-center ">
+                      {item.installCount}
                     </TableCell>
-                    <TableCell className="text-center ">446132568</TableCell>
-                    <TableCell className="capitalize text-center">
-                      123456
+                    <TableCell className="text-center ">
+                      {item.ratingCount}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {item.reviewCount}
                     </TableCell>
                   </TableRow>
                 ))}

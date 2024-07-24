@@ -43,7 +43,7 @@ const Option = (props: any) => (
     <div className="flex items-center gap-2">
       <Avatar>
         <AvatarImage src={props.data.src} alt={props.data.name} />
-        <AvatarFallback>{props.data.name}</AvatarFallback>
+        <AvatarFallback>{props.data.name.charAt(0)}</AvatarFallback>
       </Avatar>
       {props.data.name}
     </div>
@@ -59,7 +59,7 @@ const MultiValue = (props: any) => (
           alt={props.data.name}
           className="w-6 h-6 mt-2 rounded-full"
         />
-        <AvatarFallback>{props.data.name}</AvatarFallback>
+        <AvatarFallback>{props.data.name.charAt(0)}</AvatarFallback>
       </Avatar>
       {props.data.name}
     </div>
@@ -89,18 +89,21 @@ const ClearIndicator = (props: any) => {
   );
 };
 
-const AvatarMultiSelect = () => {
+const AvatarMultiSelect = ({ selectedUsers }: { selectedUsers: any[] }) => {
   const items = members.map((member) => ({
     ...member,
     value: member.id,
     label: member.name,
   }));
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(selectedUsers || []);
 
   const animatedComponents = makeAnimated();
 
   const handleChange = (selected: any) => {
     setSelectedOptions(selected || []);
+    // if (onChange) {
+    //   onChange(selected || []);
+    // }
   };
 
   return (
@@ -109,10 +112,10 @@ const AvatarMultiSelect = () => {
         closeMenuOnSelect={false}
         components={{
           ...animatedComponents,
-          // MultiValueRemove,
-          // MultiValue,
+          MultiValueRemove,
+          MultiValue,
           Option,
-          // ClearIndicator,
+          ClearIndicator,
         }}
         isMulti
         options={items}
